@@ -1,0 +1,18 @@
+.profile{
+    width: 100px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+p {
+    text-align: center;
+}
+
+.blue{
+    color: blue;
+}
+
+#red {
+    text-align: center;
+}
