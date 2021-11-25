@@ -51,12 +51,29 @@ p {
     float: left;
 }
 
+.left-menu2 {
+    width: 20%;
+    height: 400px;
+    background: cornflowerblue;
+    display: inline-block;
+    
+}
+
 .right {
     width: 80%;
     height: 400px;
     background: coral;
     float: left;
 }
+
+.right2 {
+    width: 70%;
+    height: 400px;
+    background: coral;
+    display: inline-block;
+    vertical-align: top;
+}
+
 
 .footer {
     width: 100%;
