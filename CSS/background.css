@@ -1,0 +1,27 @@
+.main-background {
+    width: 100%;
+    height: 500px;
+    background-image: url(../HTML/shoes.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1px;
+    /* filter: brightness(70%); */
+}
+
+.main-title {
+    color: white;
+    font-size: 40px;
+    margin-top: 300px;
+}
+
+.main-p {
+    color: white;
+    font-size: 25px;
+    margin: 4px;
+}
+
+.main-a {
+    color: white;
+    font-size: 30px;
+}
