@@ -1,0 +1,69 @@
+body {
+    background: gray;
+    padding: 100px;
+   
+}
+
+div {
+    box-sizing: border-box;
+    display:block;
+    margin: auto;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+input[type=text] {
+    width: 100%;
+}
+
+input[type=email] {
+    width: 100%;
+}
+
+input[type=submit]{
+    background: rgb(206, 206, 105);
+    color: white;
+    border: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+form {
+    padding: 20px;
+    width: 500px;
+    height: 600px;
+    background: white;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+    /* margin-top: 100px; */
+
+
+    /* padding을 주어도 width height가 변하지 않는다. */
+    box-sizing: border-box;
+}
+
+.div-left {
+    
+    float: left;
+}
+
+.div-right {
+    float: right;
+}
+
+.width49 {
+    width: 49%;
+}
+
