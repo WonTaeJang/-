@@ -12,3 +12,5 @@
     - #id (100점)       // id selector
     - .class (10점)     // class selector
     - p (1점)           // tag selector
+
+- javascript: HTML 조작과 변경하는 용도
