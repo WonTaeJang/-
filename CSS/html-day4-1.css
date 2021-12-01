@@ -1,0 +1,59 @@
+body {
+    margin: 0px;
+}
+
+.div {
+    box-sizing: border-box;
+}
+
+.main-background {
+    background: cadetblue;
+    padding: 30px;
+}
+
+.main-form {
+    /* background: burlywood; */
+    /* border: 1px solid red; */
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    
+}
+
+td {
+    border-bottom: 3px solid cadetblue;
+    border-top: 3px solid cadetblue;
+}
+
+table {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+}
+
+.td-number {
+    text-align: right;
+}
+
+.img-size {
+    width: 100px;
+}
+
+.img-left, .txt-left {
+    float: left;
+}
+
+.btn-right {
+    float: right;
+}
+
+button {
+    background: silver;
+    color: white;
+    width: 300px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+}
