@@ -20,7 +20,7 @@ body {
     
 }
 
-td {
+.main-form td {
     border-bottom: 3px solid cadetblue;
     border-top: 3px solid cadetblue;
 }

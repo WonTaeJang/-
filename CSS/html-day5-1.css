@@ -1,0 +1,47 @@
+.btn {
+    padding: 15px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: coral;
+    color: white;
+    cursor: cell;
+}
+
+/* subo class */
+/* 마우스를 가져다 댔을때 */
+.btn:hover {
+    background-color: chocolate;
+}
+
+.btn:focus {
+    color: grey;
+}
+
+.btn:active {
+    background-color: brown;
+    border: 2px solid black;
+}
+
+.input-test {
+    font-size: 20px;
+}
+
+.input-test:focus {
+    border: 5px solid yellow;
+}
+
+.custom-link {
+    /* 링크 밑줄 */
+    text-decoration: none;
+}
+
+/* 방문 전 링크 */
+.custom-link:link {
+    color: violet;
+}
+
+/* 방문 후 링크 */
+.custom-link:visited {
+    color: red;
+}
