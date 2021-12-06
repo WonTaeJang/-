@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Javascript jquery</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="../CSS/javascript-day3-1.css">
+    </head>
+ <body>
+    <p class="greeting">안녕하세요</p>
+    <p class="greeting">안녕하세요</p>
+    <p class="greeting">안녕하세요</p>
+
+    <button class="btn">버튼</button>
+    <button class="btn">버튼</button>
+    <button class="btn">버튼</button>
+
+    <script>
+        // $('#test').html('안녕');
+        // $('#test').css('color','red');
+        // $('#test').addClass('yellow-bg');
+
+        // 자바스크립트는 요소 하나씩 변경해야함
+        //document.getElementsByClassName('greeting')[0].innerHTML = '안녕';
+        //document.getElementsByClassName('greeting')[1].innerHTML = '안녕';
+        
+        // Jquery는 모두 바뀜 
+        //$('.greeting').html('안녕');
+        //$('.greeting').eq(1).html('안녕!');
+
+        // javascript button
+
+
+        // jquery button
+        $('.btn').on('click', function(){
+            $('.greeting').aq(1).hide();
+        })
+
+        document.getElementsByClassName('btn')[0].addEventListener('click', function(){
+            document.getElementsByClassName('greeting')[0].style.display = 'none';
+        })
+
+    </script>
+
+    
+ </body>
+
+</html>
