@@ -19,6 +19,17 @@
     <div class="black-background">
         <div class="white-background">
             <p>로그인하세요</p>
+            <form action="login.php">
+                <div class="form-group">
+                    <input id='form__email' type="email" class="form-control" placeholder="Email" id="email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <button id='form__submit' type="submit" class="btn btn-primary btn-lg">전송</button>
+                <button class="btn btn-danger btn-lg">닫기</button>
+            </form>
+            
         </div>
     </div>
 
@@ -46,15 +57,41 @@
         <button id='login' class="btn btn-primary btn-lg">Login</button>
     </div>
 
+    
+
     <script>
+        $('form').on('submit',function(e){
+            if($('#form__email').val() == '')
+            {
+                console.log('email value none')
+                e.preventDefault();
+            }
+                
+        })
+
+
         // jquery
-        $('.btn').on('click',function(){
-            //$('.black-background').show();
+        $('.btn-primary').on('click',function(){
+            // if($('#test-input').val() == '안녕')
+            // {
+            //     $('.black-background').fadeIn();
+            // }
+
             $('.black-background').fadeIn();
+            //$('.black-background').show();
             //$('.black-background').fadeOut();
             //$('.black-background').slideDown();
             //$('.black-background').slideUp();
         });
+
+        $('.btn-danger').on('click',function(){
+            //$('.black-background').show();
+            $('.black-background').fadeOut();
+            //$('.black-background').fadeOut();
+            //$('.black-background').slideDown();
+            //$('.black-background').slideUp();
+        });
+
 
         $('#nav-sub-btn').click(function(){
             $('.nav-sub').slideToggle();
@@ -66,6 +103,8 @@
         // document.getElementsByClassName('btn')[0].addEventListener('click',function(){
         //     document.getElementsByClassName('black-background')[0].style.display = 'block';
         // })
+
+
     </script>
 </body>
 
