@@ -33,11 +33,17 @@
         </div>
     </div>
 
+    <div class= 'left-menu'>
+        <a>Menu Title</a>
+    </div>
+
     <!-- nav 메뉴 만들기 -->
     <div class="nav-menu">
         <h4> Shirts Studio </h4>
         <a id="nav-sub-btn">Products</a>
     </div>
+
+    
     
     <ul class="list-group nav-sub">
         <li class="list-group-item">An item</li>
@@ -55,6 +61,7 @@
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <button id='login' class="btn btn-primary btn-lg">Login</button>
+        <button id="show-menu" class="btn btn-danger btn-lg">Menu Left Bar</button>
     </div>
 
     
@@ -77,11 +84,16 @@
             //     $('.black-background').fadeIn();
             // }
 
-            $('.black-background').fadeIn();
+            //$('.black-background').fadeIn();
             //$('.black-background').show();
             //$('.black-background').fadeOut();
             //$('.black-background').slideDown();
             //$('.black-background').slideUp();
+
+            // 요즘 방식은 아님 (느림)
+            //$('.black-background').show().animate({marginTop: '0px'});
+
+            $('.black-background').addClass('slide-down');
         });
 
         $('.btn-danger').on('click',function(){
@@ -104,6 +116,9 @@
         //     document.getElementsByClassName('black-background')[0].style.display = 'block';
         // })
 
+        $('#show-menu').click(function(){
+            $('.left-menu').animate({marginLeft : '0px'}, 1000);
+        })
 
     </script>
 </body>
