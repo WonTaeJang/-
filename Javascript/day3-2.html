@@ -24,16 +24,16 @@
                     <input id='form__email' type="email" class="form-control" placeholder="Email" id="email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input id="form__pw" type="password" class="form-control" placeholder="Password">
                 </div>
                 <button id='form__submit' type="submit" class="btn btn-primary btn-lg">전송</button>
                 <button class="btn btn-danger btn-lg">닫기</button>
             </form>
-            
+
         </div>
     </div>
 
-    <div class= 'left-menu'>
+    <div class='left-menu'>
         <a>Menu Title</a>
     </div>
 
@@ -43,8 +43,8 @@
         <a id="nav-sub-btn">Products</a>
     </div>
 
-    
-    
+
+
     <ul class="list-group nav-sub">
         <li class="list-group-item">An item</li>
         <li class="list-group-item">A second item</li>
@@ -64,21 +64,86 @@
         <button id="show-menu" class="btn btn-danger btn-lg">Menu Left Bar</button>
     </div>
 
-    
+    <h4 class="my-4 text-center">Showcase</h4>
+
+    <div style="overflow:hidden; position: relative; ">
+        <div class="slide-container">          
+            <div class="slide-box">
+                <img src="../Image/sample_1.jpg">
+            </div>
+            <div class="slide-box">
+                <img src="../Image/sample_2.jpg">
+            </div>
+            <div class="slide-box">
+                <img src="../Image/sample_3.jpg">
+            </div>
+        </div>
+
+        <button class="slide-next">Next</button>
+    </div>
+
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+
+    <div class="my-5"></div>
 
     <script>
-        $('form').on('submit',function(e){
-            if($('#form__email').val() == '')
+        $('.slide-1').click(function(){
+            $('.slide-container').css('transform', 'translateX(0)');
+        })
+
+        $('.slide-2').click(function(){
+            $('.slide-container').css('transform', 'translateX(-100vw)');
+        })
+
+        $('.slide-3').click(function(){
+            $('.slide-container').css('transform', 'translateX(-200vw)');
+        })
+
+        var cur = 1;
+        $('.slide-next').click(function(){
+            if(cur == 3)
             {
-                console.log('email value none')
+                cur = 0;
+            }
+
+            $('.slide-container').css('transform', 'translateX(-' + cur +'00vw)');
+            cur += 1;
+
+        })
+    </script>
+
+    <script>
+        $('form').on('submit', function (e) {
+            // if($('#form__email').val() == '')
+            // {
+            //     console.log('email value none')
+            //     e.preventDefault();
+            // }
+
+            // 정규식 활용
+            ///^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/
+            if (!/\S+@\S+\.\S/.test($('#form__email').val())) {
+                console.log('email value invalid')
                 e.preventDefault();
             }
-                
+            else if ($('#form__email').val() == '') {
+                console.log('email value empty')
+                e.preventDefault();
+
+            }
+
+            var password = $("#form__pw").val();
+            if (!/[A-Z]+/.test($('#form__pw').val())) {
+                console.log('Password value invalid')
+                e.preventDefault();
+            }
         })
 
 
         // jquery
-        $('.btn-primary').on('click',function(){
+        $('.btn-primary').on('click', function () {
             // if($('#test-input').val() == '안녕')
             // {
             //     $('.black-background').fadeIn();
@@ -96,7 +161,7 @@
             $('.black-background').addClass('slide-down');
         });
 
-        $('.btn-danger').on('click',function(){
+        $('.btn-danger').on('click', function () {
             //$('.black-background').show();
             $('.black-background').fadeOut();
             //$('.black-background').fadeOut();
@@ -105,7 +170,7 @@
         });
 
 
-        $('#nav-sub-btn').click(function(){
+        $('#nav-sub-btn').click(function () {
             $('.nav-sub').slideToggle();
             //$('.nav-sub').fadeToggle();
             //$('.nav-sub').toggle();
@@ -116,11 +181,14 @@
         //     document.getElementsByClassName('black-background')[0].style.display = 'block';
         // })
 
-        $('#show-menu').click(function(){
-            $('.left-menu').animate({marginLeft : '0px'}, 1000);
+        $('#show-menu').click(function () {
+            $('.left-menu').animate({ marginLeft: '0px' }, 1000);
         })
 
     </script>
+
 </body>
+
+
 
 </html>
