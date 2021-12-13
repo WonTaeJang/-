@@ -39,11 +39,26 @@
 
     <!-- nav 메뉴 만들기 -->
     <div class="nav-menu">
-        <h4> Shirts Studio </h4>
+        <h4 style="margin:0" class="large-logo"> Shirts Studio </h4>
         <a id="nav-sub-btn">Products</a>
     </div>
 
+    <script>
+        // 스크롤바를 내리면 nav 메뉴가 변하는 에니메이션
+        // window: viewport(브라우저 화면)
+        $(window).on('scroll', function () {
+            //console.log($(window).scrollTop());
+            if ($(window).scrollTop() > 100) {
+                $('.nav-menu').addClass('nav-black');
+                $('.nav-menu h4').addClass('small-logo');
+            }
+            else {
+                $('.nav-menu').removeClass('nav-black');
+                $('.nav-menu h4').removeClass('small-logo');
+            }
 
+        });
+    </script>
 
     <ul class="list-group nav-sub">
         <li class="list-group-item">An item</li>
@@ -64,10 +79,11 @@
         <button id="show-menu" class="btn btn-danger btn-lg">Menu Left Bar</button>
     </div>
 
+    <!-- slide image  -->
     <h4 class="my-4 text-center">Showcase</h4>
 
     <div style="overflow:hidden; position: relative; ">
-        <div class="slide-container">          
+        <div class="slide-container">
             <div class="slide-box">
                 <img src="../Image/sample_1.jpg">
             </div>
@@ -86,29 +102,46 @@
     <button class="slide-2">2</button>
     <button class="slide-3">3</button>
 
-    <div class="my-5"></div>
+    <!-- tab -->
+    <div class="container mt-5">
+        <ul class="list">
+            <li class="tab-button">Products</li>
+            <li class="tab-button active">Information</li>
+            <li class="tab-button">Shipping</li>
+        </ul>
+
+        <div class="tab-content">
+            <p>상품설명입니다. Product</p>
+        </div>
+        <div class="tab-content show">
+            <p>상품정보입니다. Info</p>
+        </div>
+        <div class="tab-content">
+            <p>배송정보입니다. Shipping</p>
+        </div>
+    </div>
+    <script src="js/tab.js"></script>
 
     <script>
-        $('.slide-1').click(function(){
+        $('.slide-1').click(function () {
             $('.slide-container').css('transform', 'translateX(0)');
         })
 
-        $('.slide-2').click(function(){
+        $('.slide-2').click(function () {
             $('.slide-container').css('transform', 'translateX(-100vw)');
         })
 
-        $('.slide-3').click(function(){
+        $('.slide-3').click(function () {
             $('.slide-container').css('transform', 'translateX(-200vw)');
         })
 
         var cur = 1;
-        $('.slide-next').click(function(){
-            if(cur == 3)
-            {
+        $('.slide-next').click(function () {
+            if (cur == 3) {
                 cur = 0;
             }
 
-            $('.slide-container').css('transform', 'translateX(-' + cur +'00vw)');
+            $('.slide-container').css('transform', 'translateX(-' + cur + '00vw)');
             cur += 1;
 
         })
@@ -161,13 +194,7 @@
             $('.black-background').addClass('slide-down');
         });
 
-        $('.btn-danger').on('click', function () {
-            //$('.black-background').show();
-            $('.black-background').fadeOut();
-            //$('.black-background').fadeOut();
-            //$('.black-background').slideDown();
-            //$('.black-background').slideUp();
-        });
+
 
 
         $('#nav-sub-btn').click(function () {
@@ -185,6 +212,34 @@
             $('.left-menu').animate({ marginLeft: '0px' }, 1000);
         })
 
+    </script>
+
+    <script>
+        $('.btn-danger').on('click', function () {
+            //$('.black-background').show();
+            //$('.black-background').fadeOut();
+            //$('.black-background').fadeOut();
+            //$('.black-background').slideDown();
+            //$('.black-background').slideUp();
+            $('.black-background').removeClass('slide-down');
+        });
+
+        // 이벤트 버블링
+        // 클릭했을때 상위요소나 하위요소도 클릭된걸로 인식 
+        $('.black-background').click(function(e){
+
+            e.target;   // 지금 클릭한 요소
+            e.currentTarget;    // 지금 이벤트 리스너가 달린곳
+            $(this);  // 위와 동일
+            e.preventDefault(); // 기본동작 막기
+
+            if(e.currentTarget == e.target)
+            {                
+                $('.black-background').removeClass('slide-down');
+            }
+
+            //
+        })
     </script>
 
 </body>
