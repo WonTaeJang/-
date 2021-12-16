@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Javascript from</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <link rel="stylesheet" href="../CSS/javascript-day7-1.css">
+    </head>
+ <body>
+
+    <form class="container my-5">
+        <div class="form-group">
+         
+          <p>상품선택</p>
+          <select class="form-control" id="option1">
+            <option>모자</option>
+            <option>셔츠</option>
+          </select>
+          
+          <div class="size-select">
+            <div class="size-select">
+                <p class="mt-4">사이즈선택</p>
+                <select class="form-control" id="option2">
+                  <option>95</option>
+                  <option>100</option>
+                  <option>105</option>
+                </select>
+              </div>
+          </div>
+          
+    
+        </div>
+    </form> 
+
+    <script>
+        // select input에서 셔츠가 클릭되면 밑에 UI를 보여줌
+        $('#option1').on('change', function(){
+            if($('#option1').val() == '셔츠')
+            {
+                $('.size-select').show();
+            }
+            else
+            {
+                $('.size-select').hide();
+            }
+        } )
+    </script>
+    
+ </body>
+
+</html>
