@@ -53,6 +53,7 @@
 
     <div class="container my-4">
         <button class="btn btn-danger" id='sortPrice'>가격순 정렬</button>
+        <button class="btn btn-danger" id='sortPrice2'>가나다 정렬</button>
         <button class="btn btn-danger" id='filterPrice'>5만원 이하</button>
     </div>
 
@@ -63,25 +64,26 @@
             { id: 2, price: 60000, title: 'Black Monastery' }
         ];
 
-        products.forEach(function (i) {
-            $('.title').eq(i.id).html(i.title);
-            $('.price').eq(i.id).html(`가격: ${i.price}`);
-        });
-
-
         $('#sortPrice').click(function () {
             // 오름차순
             products.sort(function (a, b) {
                 return a.price - b.price;
             });
 
-            var count = 0;
-            products.forEach(function (i) {
+            setCard();
+        })
 
-                $('.title').eq(count).html(i.title);
-                $('.price').eq(count).html(`가격: ${i.price}`);
-                count++;
-            });
+        $('#sortPrice2').click(function(){
+            products.sort(function(a,b){
+                if(a.title < b.title == true){
+                    return -1
+                }
+                else {
+                    return 1
+                }
+            })
+
+            setCard();
         })
 
         $('#filterPrice').click(function(){
@@ -105,20 +107,33 @@
 
         })
 
-        var array = [7,3,5,2,40]
+        function setCard(){
+            var count = 0;
+            products.forEach(function (i) {
+                $('.title').eq(count).html(i.title);
+                $('.price').eq(count).html(`가격: ${i.price}`);
+                count++;
+            });
+        }
 
-        var array2 = array.filter(function(a){
-            return a < 10;
-        });
+        // card 초기화
+        setCard();
 
-        var array3 = array.map(function(a){
-            return a * 2;
-        })
 
-        var 한글 = ['다','가','나'];
+        // var array = [7,3,5,2,40]
 
-        한글.sort();
-        console.log(한글);
+        // var array2 = array.filter(function(a){
+        //     return a < 10;
+        // });
+
+        // var array3 = array.map(function(a){
+        //     return a * 2;
+        // })
+
+        // var 한글 = ['다','가','나'];
+
+        // 한글.sort();
+        // console.log(한글);
 
     </script>
 </body>
