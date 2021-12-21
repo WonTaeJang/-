@@ -16,6 +16,13 @@
 </head>
 
 <body>
+    <!-- 서버: 접속자가 요청을 하면 데이터를 갖다줌
+    요청: 
+        GET: URL을 입력해서 요청함 (읽기)
+        POST: 숨겨서 정보를 전달하거나 요청 (쓰기)
+
+        AJAX: 서버에다가 GET/POST 요청을 할 수 있게 도와주는데 새로고침없이 요청할 수 있음 -->
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -25,31 +32,56 @@
     <link rel="stylesheet" href="../CSS/javascript-day8-1.css">
 
     <h4 id='hello'>임시 글씨</h4>
-    <button class='btn btn-danger'>버튼</button>
+    <button id='testBtn' class='btn btn-danger'>버튼</button>
 
-    <!-- 서버: 접속자가 요청을 하면 데이터를 갖다줌
-    요청: 
-        GET: URL을 입력해서 요청함 (읽기)
-        POST: 숨겨서 정보를 전달하거나 요청 (쓰기)
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    <button id='showBtn' class='btn btn-danger'>상품보여주기</button>
 
-        AJAX: 서버에다가 GET/POST 요청을 할 수 있게 도와주는데 새로고침없이 요청할 수 있음 -->
     <script>
 
-        $('.btn').click(function () {
+        $('#testBtn').click(function () {
             $.ajax({
                 url: 'https://codingapple1.github.io/hello.txt',
                 type: 'GET'
             }).done(function (data) {
                 // ajax 요청이 성공했을때 
                 $('#hello').html(data);
-
-
+            }).fail(function () {
+                // ajax 요청이 실패했을때
+            }).always(function () {
+                // 성공하든 실패하든 항상 실행
+                // 로딩중 같은거 
             });
         });
 
-    
+        $('#showBtn').click(function(){
+            //https://codingapple1.github.io/data.json
+            $.ajax({
+                url: 'https://codingapple1.github.io/data.json',
+                type: 'GET'
+            }).done(function (data) {
+                // ajax 요청이 성공했을때 
+                console.log(data);
+                $('.card-title').html(data.model);
+                $('.card-text').html(data.price);
+                $('.card-img-top').attr('src', data.img);
+            }).fail(function () {
+                // ajax 요청이 실패했을때
+            }).always(function () {
+                // 성공하든 실패하든 항상 실행
+                // 로딩중 같은거 
+            });
+        })
 
-        
+
 
     </script>
 </body>
