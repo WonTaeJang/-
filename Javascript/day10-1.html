@@ -48,11 +48,11 @@
     <link rel="stylesheet" href="../CSS/javascript-day10-1.css">
 
     <!-- hammer.js -->
-    <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
 
     <script>
         var image1 = document.querySelectorAll('.slide-box img')[0];
-
+        var currentImage = 1;
         var manager = new Hammer.Manager(image1);
         
         manager.add(new Hammer.Pan({threshold: 0}));
@@ -62,8 +62,19 @@
             console.log(e.deltaX);  // 클릭한 시점으로 이동 거리
             if(e.deltaX < -1){
                 $('.slide-container').css('transform', `translateX(${e.deltaX}px)`);
-            }
+            
+                if(e.isFinal && currentImage == 1)
+                {
+                    $('.slide-container').addClass('transforming');
+                    $('.slide-container').css('transform', `translateX(-100vw)`);
+                    
+                    setTimeout(function(){
+                        $('.slide-container').removeClass('transforming');
+                    },500);
+                    
+                }
                 
+            }
         })
 
 

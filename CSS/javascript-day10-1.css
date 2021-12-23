@@ -4,6 +4,10 @@
     /* transition: transform 1s; */
 }
 
+.transforming {
+    transition: transform 0.5s
+}
+
 .slide-box {
     width: 100vw;
     float: left;
