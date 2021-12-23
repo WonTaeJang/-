@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Typewriting</title>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="../CSS/javascript-day11-1.css">
+
+    <div>
+        <button>버튼</button>
+        <h1>abcde</h1>
+    </div>
+    
+
+    <script>
+        // 버튼을 누르면
+        // 0.5초 후에 a를 h1안에 입력
+
+        var originFontTag = document.querySelector('h1');
+        var originFont = document.querySelector('h1').innerHTML;
+        
+        $('button').click(function(){
+            originFontTag.innerHTML = '';
+
+            for(let i = 0; i < originFont.length; i++)
+            {
+                setTimeout(function () {
+                    console.log(i);
+                    originFontTag.innerHTML = originFontTag.innerHTML + originFont[i];
+                }, 500 * (i+1))
+            }
+            
+        })
+
+        
+
+    </script>
+</body>
+
+</html>
