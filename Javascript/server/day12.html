@@ -80,12 +80,12 @@
                                 </div>
                             </div>
                             <div class="col-2 border">
-                                <button type="button" class="btn btn-light">X</button>
+                                <button type="button" class="btn btn-light shopping-reset">X</button>
                             </div>
                         </div>
                     </div>
                     <div class="p-3" style="text-align: right;">
-                        <label>총 합계 0원</label>
+                        총 합계<label class="total-cost"> 0</label>원
                     </div>
                     <div>
                         <button type="button" class="btn btn-primary btn-buy">구매하기</button>
@@ -146,6 +146,8 @@
                 let shopPrice =  $('.shopping-price').eq(index).html();
                 let productsPrice = productsList["products"][index].price;
                 $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
+
+                totalCost();
             });
 
             $('.shopping-minus').click(function(e){
@@ -153,14 +155,37 @@
 
                 // count
                 let count = $('.shopping-count').eq(index).val();
-                $('.shopping-count').eq(index).val(parseInt(count) - 1);
 
-                // price
-                let shopPrice =  $('.shopping-price').eq(index).html();
-                let productsPrice = productsList["products"][index].price;
-                $('.shopping-price').eq(index).html(parseInt(shopPrice) - parseInt(productsPrice));
+                if(count == 1){
+                    resetShppingBasket(index);
+                }
+                else {
+                    $('.shopping-count').eq(index).val(parseInt(count) - 1);
+
+                    // price
+                    let shopPrice = $('.shopping-price').eq(index).html();
+                    let productsPrice = productsList["products"][index].price;
+                    $('.shopping-price').eq(index).html(parseInt(shopPrice) - parseInt(productsPrice));
+                }
+
+                totalCost();
+            });
+
+            $('.shopping-reset').click(function(){
+                let index = $(this).parent('div').parent('div').children('.col-6').children('.input-group').children('.shoppingID').html()
+                
+                resetShppingBasket(index);
+
+                totalCost();
             });
         })
+
+        function resetShppingBasket(index){
+            $('.shopping-count').eq(index).val(0);
+            $('.shopping-price').eq(index).html(0);
+            $('.shoppingBasket').eq(index).hide();
+
+        }
 
         function setShoppingBasket(data){
             //console.log(data);
@@ -184,6 +209,8 @@
             let shopPrice =  $('.shopping-price').eq(index).html();
             let productsPrice = productsList["products"][index].price;
             $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
+
+            totalCost();
         }
 
         function setCard(num) {
@@ -206,6 +233,18 @@
                 $('.card-footer').eq(i).html(data["products"][i].price);
                 $('.visually-hidden').eq(i).html(data["products"][i].id);
             }
+        }
+
+        function totalCost(){
+            let cost = 0;
+
+            for(let i=0; i < 4; i++){
+                let temp = $('.shopping-price').eq(i).html();
+                cost = parseInt(cost) + parseInt(temp);
+            }
+
+            $('.total-cost').html(cost);
+
         }
 
         $('#search').on('change', function () {
