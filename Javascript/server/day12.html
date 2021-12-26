@@ -27,7 +27,7 @@
         <div class="mb-3">
             <input id='search' class="form-control" type="text" placeholder="검색어를 입력해주세요.">
         </div>
-        <div class='row mb-3'>
+        <div class='row'>
             <div class='col-8'>
                 <div>
                     <h1>모든 상품 리스트</h1>
@@ -43,6 +43,9 @@
                             <div class="card-footer">
                                 price
                             </div>
+                            <div class="visually-hidden productID">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,6 +56,34 @@
                 </div>
                 <div class='form-buy border'>
                     <div class="bg-dark text-center text-white padding100">이곳에 상품을 놓아주세요.</div>
+                    <div class="shoppingBasketList" width="100%">
+                        <div class="row border shoppingBasket">
+                            <div class="col-4 border">
+                                <img class='shopping-img' src='#' width="100%">
+                            </div>
+                            <div class="col-6 border">
+                                <h5 class="shopping-title">Card title</h5>
+                                <p class="shopping-text">Card text</p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">수량: </span>
+                                    <input type="text" class="shopping-count form-control" value="0">
+                                    <input type="button" class="shopping-plus btn btn-outline-secondary" value="+">
+                                    <input type="button" class="shopping-minus btn btn-outline-secondary" value="-">
+                                    <div class="visually-hidden shoppingID">
+
+                                    </div>
+                                </div>
+                                <div>
+                                    합계:
+                                    <label class='shopping-price'>0</label>
+                                    원
+                                </div>
+                            </div>
+                            <div class="col-2 border">
+                                <button type="button" class="btn btn-light">X</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="p-3" style="text-align: right;">
                         <label>총 합계 0원</label>
                     </div>
@@ -67,6 +98,9 @@
 
 
     <script>
+        var productsList;
+        var test;
+
         $(window).ready(function () {
             $.ajax({
                 url: 'http://localhost:3000/store',
@@ -75,6 +109,7 @@
                 // ajax 요청이 성공했을때 
                 setCard(data["products"].length);
                 setProducts(data)
+                productsList = data;
                 console.log(data);
 
             }).fail(function () {
@@ -83,12 +118,84 @@
                 // 성공하든 실패하든 항상 실행
                 // 로딩중 같은거 
             });
+
+            // shoppingBasketList
+            for (let i = 0; i < 3; i++) {
+                $('.shoppingBasket').eq(0).clone().appendTo('.shoppingBasketList');
+            }
+            $('.shoppingBasket').hide();
+
+            $('.form-buy').droppable({
+                drop: function (event, ui) {
+                    var item = $(ui.draggable);
+                    //console.log(item);
+                    //test = item[0];
+                    //console.log(item[0].innerHTML.getElementById('card-title'));
+                    setShoppingBasket(item[0]);
+                },
+            });
+
+            $('.shopping-plus').click(function(e){
+                let index = $(this).parent('div').children('.shoppingID').html();
+
+                // count
+                let count = $('.shopping-count').eq(index).val();
+                $('.shopping-count').eq(index).val(parseInt(count) + 1);
+
+                // price
+                let shopPrice =  $('.shopping-price').eq(index).html();
+                let productsPrice = productsList["products"][index].price;
+                $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
+            });
+
+            $('.shopping-minus').click(function(e){
+                let index = $(this).parent('div').children('.shoppingID').html();
+
+                // count
+                let count = $('.shopping-count').eq(index).val();
+                $('.shopping-count').eq(index).val(parseInt(count) - 1);
+
+                // price
+                let shopPrice =  $('.shopping-price').eq(index).html();
+                let productsPrice = productsList["products"][index].price;
+                $('.shopping-price').eq(index).html(parseInt(shopPrice) - parseInt(productsPrice));
+            });
         })
+
+        function setShoppingBasket(data){
+            //console.log(data);
+            test = data;
+            let index = data.getElementsByClassName('productID')[0].innerText;
+            //$('.shoppingBasket').eq(0).clone().appendTo('.shoppingBasketList').show();
+            if($('.shoppingBasket').eq(index).is(':hidden'))
+            {
+                $('.shopping-img').eq(index).attr('src','/resources/' + productsList["products"][index].photo);
+                $('.shopping-title').eq(index).html(productsList["products"][index].product_name);
+                $('.shopping-text').eq(index).html(productsList["products"][index].brand_name);
+                $('.shoppingID').eq(index).html(index);
+                $('.shoppingBasket').eq(index).show();
+            }
+            
+            // count
+            let count = $('.shopping-count').eq(index).val();
+            $('.shopping-count').eq(index).val(parseInt(count) + 1);
+
+            // price
+            let shopPrice =  $('.shopping-price').eq(index).html();
+            let productsPrice = productsList["products"][index].price;
+            $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
+        }
 
         function setCard(num) {
             for (let i = 0; i < (num - 1); i++) {
                 $('#card1').clone().appendTo('#cardList');
             }
+
+            $('.card1').draggable({
+                opacity:"0.8",
+                revert : true,
+                //helper: "clone"
+            });
         }
 
         function setProducts(data) {
@@ -97,6 +204,7 @@
                 $('.card-title').eq(i).html(data["products"][i].product_name);
                 $('.card-text').eq(i).html(data["products"][i].brand_name);
                 $('.card-footer').eq(i).html(data["products"][i].price);
+                $('.visually-hidden').eq(i).html(data["products"][i].id);
             }
         }
 
@@ -130,6 +238,7 @@
             }
         })
 
+        
 
     </script>
 </body>
