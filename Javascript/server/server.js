@@ -9,12 +9,12 @@ router.get('/', function(req,res){
 })
 
 router.get('/store', function(req, res){
-  console.log('hi');
   res.sendFile(path.join(__dirname + '/resources/store.json'));
 })
 
 app.use('/', router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/resources',express.static(path.join(__dirname, 'resources')));
 //add the router
 
 
