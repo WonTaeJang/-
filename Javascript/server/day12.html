@@ -22,8 +22,45 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/public/javascript-day12.css">
+    <script src="/public/js-day12.js"></script>
 
     <div class='container'>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">상품 구매하기</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-user">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control" id="userid" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" >Phone</span>
+                                <input type="text" class="form-control" id="userphone" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </div>
+                        <div class="modal-canvas">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary order-products">구매하기</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
         <div class="mb-3">
             <input id='search' class="form-control" type="text" placeholder="검색어를 입력해주세요.">
         </div>
@@ -96,188 +133,81 @@
         </div>
     </div>
 
-
     <script>
-        var productsList;
-        var test;
-
-        $(window).ready(function () {
-            $.ajax({
-                url: 'http://localhost:3000/store',
-                type: 'GET'
-            }).done(function (data) {
-                // ajax 요청이 성공했을때 
-                setCard(data["products"].length);
-                setProducts(data)
-                productsList = data;
-                console.log(data);
-
-            }).fail(function () {
-                // ajax 요청이 실패했을때
-            }).always(function () {
-                // 성공하든 실패하든 항상 실행
-                // 로딩중 같은거 
-            });
-
-            // shoppingBasketList
-            for (let i = 0; i < 3; i++) {
-                $('.shoppingBasket').eq(0).clone().appendTo('.shoppingBasketList');
-            }
-            $('.shoppingBasket').hide();
-
-            $('.form-buy').droppable({
-                drop: function (event, ui) {
-                    var item = $(ui.draggable);
-                    //console.log(item);
-                    //test = item[0];
-                    //console.log(item[0].innerHTML.getElementById('card-title'));
-                    setShoppingBasket(item[0]);
-                },
-            });
-
-            $('.shopping-plus').click(function(e){
-                let index = $(this).parent('div').children('.shoppingID').html();
-
-                // count
-                let count = $('.shopping-count').eq(index).val();
-                $('.shopping-count').eq(index).val(parseInt(count) + 1);
-
-                // price
-                let shopPrice =  $('.shopping-price').eq(index).html();
-                let productsPrice = productsList["products"][index].price;
-                $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
-
-                totalCost();
-            });
-
-            $('.shopping-minus').click(function(e){
-                let index = $(this).parent('div').children('.shoppingID').html();
-
-                // count
-                let count = $('.shopping-count').eq(index).val();
-
-                if(count == 1){
-                    resetShppingBasket(index);
-                }
-                else {
-                    $('.shopping-count').eq(index).val(parseInt(count) - 1);
-
-                    // price
-                    let shopPrice = $('.shopping-price').eq(index).html();
-                    let productsPrice = productsList["products"][index].price;
-                    $('.shopping-price').eq(index).html(parseInt(shopPrice) - parseInt(productsPrice));
-                }
-
-                totalCost();
-            });
-
-            $('.shopping-reset').click(function(){
-                let index = $(this).parent('div').parent('div').children('.col-6').children('.input-group').children('.shoppingID').html()
-                
-                resetShppingBasket(index);
-
-                totalCost();
-            });
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            keyboard: false
         })
+        var _canvas = document.getElementById("canvas");
 
-        function resetShppingBasket(index){
-            $('.shopping-count').eq(index).val(0);
-            $('.shopping-price').eq(index).html(0);
-            $('.shoppingBasket').eq(index).hide();
+        $('.modal-canvas').hide();
 
-        }
+       
 
-        function setShoppingBasket(data){
-            //console.log(data);
-            test = data;
-            let index = data.getElementsByClassName('productID')[0].innerText;
-            //$('.shoppingBasket').eq(0).clone().appendTo('.shoppingBasketList').show();
-            if($('.shoppingBasket').eq(index).is(':hidden'))
-            {
-                $('.shopping-img').eq(index).attr('src','/resources/' + productsList["products"][index].photo);
-                $('.shopping-title').eq(index).html(productsList["products"][index].product_name);
-                $('.shopping-text').eq(index).html(productsList["products"][index].brand_name);
-                $('.shoppingID').eq(index).html(index);
-                $('.shoppingBasket').eq(index).show();
-            }
+        $('.btn-buy').click(function(){
             
-            // count
-            let count = $('.shopping-count').eq(index).val();
-            $('.shopping-count').eq(index).val(parseInt(count) + 1);
-
-            // price
-            let shopPrice =  $('.shopping-price').eq(index).html();
-            let productsPrice = productsList["products"][index].price;
-            $('.shopping-price').eq(index).html(parseInt(shopPrice) + parseInt(productsPrice));
-
-            totalCost();
-        }
-
-        function setCard(num) {
-            for (let i = 0; i < (num - 1); i++) {
-                $('#card1').clone().appendTo('#cardList');
+            if($('.total-cost').html() != 0)
+            {
+                myModal.toggle();
             }
-
-            $('.card1').draggable({
-                opacity:"0.8",
-                revert : true,
-                //helper: "clone"
-            });
-        }
-
-        function setProducts(data) {
-            for (let i = 0; i < data["products"].length; i++) {
-                $('.card-img-top').eq(i).attr('src', '/resources/' + data["products"][i].photo);
-                $('.card-title').eq(i).html(data["products"][i].product_name);
-                $('.card-text').eq(i).html(data["products"][i].brand_name);
-                $('.card-footer').eq(i).html(data["products"][i].price);
-                $('.visually-hidden').eq(i).html(data["products"][i].id);
+            else
+            {
+                alert('장바구니가 비어있어요.');
             }
-        }
+        });
 
-        function totalCost(){
-            let cost = 0;
+        $('.order-products').click(function(){
+            let userid = $('#userid').html();
+            let userphone = $('#userphone').html();
 
-            for(let i=0; i < 4; i++){
-                let temp = $('.shopping-price').eq(i).html();
-                cost = parseInt(cost) + parseInt(temp);
-            }
+            // if(userid == '')
+            // {
+            //     return;
+            // }
 
-            $('.total-cost').html(cost);
+            // if(userphone == '')
+            // {
+            //     return;
+            // }
 
-        }
+            $('.modal-user').hide();
+            $('.modal-canvas').show();
+            $('.order-products').html('완료');
+            canvasReceipt();
+        });
 
-        $('#search').on('change', function () {
-            let cardList = document.getElementById('cardList');
+        function canvasReceipt(){
+            _canvas.width = 400;
+            _canvas.height = 500;
 
-            for (let i = 0; i < $('.card1').length; i++) {
-                $('.card1').eq(i).show();
+            let c = _canvas.getContext('2d');
+            c.font = 'bold 25px Arial';
+            c.fillText('영수증', 10, 25);
 
-                let card = $('.card1').eq(i).html();
-                card = card.replace('<span class="highlight">','');
-                card = card.replace('</span>','');    
+            c.font = '15px Arial';
+            c.fillText(Date().toLocaleString(), 10, 60);
 
-                $('.card1').eq(i).html(card);
-            }
+            let count = 0;
+            for(let i = 0; i < 4; i++)
+            {
+                let num = $('.shopping-count').eq(i).val();
 
-            for (let i = 0; i < $('.card1').length; i++) {
-                var card = $('.card1').eq(i).html();
-
-                if (card.indexOf($(this).val()) == -1) {
-                    $('.card1').eq(i).hide();
-                }
-                else {
-                    if ($(this).val() != '') {
-                        card = card.replace($(this).val(), `<span class='highlight'>${$(this).val()}</span>`);
-
-                        //console.log(card);
-                        $('.card1').eq(i).html(card);
-                    }
+                if(num != 0)
+                {
+                    c.fillText(productsList["products"][i].product_name, 10, 100 + 15*count); count++;
+                    c.fillText(productsList["products"][i].brand_name, 10, 100 + 15*count); count++;
+                    c.fillText('가격: ' + productsList["products"][i].price, 10, 100 + 15*count); count++;
+                    c.fillText('수량: ' + num, 10, 100 + 15*count); count++;
+                    
+                    let sum = parseInt(num) * parseInt(productsList["products"][i].price);
+                    c.fillText('합계:' + sum, 10, 100 + 15*count); count++;      
+                    
+                    count++;
                 }
             }
-        })
 
-        
+            count++;
+            c.fillText('총 합계:' + $('.total-cost').html(), 10, 100 + 15*count);            
+        }
 
     </script>
 </body>
