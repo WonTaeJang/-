@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <header>
+
+    </header>
+
+    <body>
+        <script>
+            var obj = {
+                data : {
+                    func1 : () => {
+                        console.log(this);
+                    }
+                },
+                func : function (){
+                    console.log(this);
+                }
+            }
+
+            obj.func();
+            obj.data.func1();
+
+            
+        </script>
+    </body>
+</html>
