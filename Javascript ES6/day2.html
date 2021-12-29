@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>event listener와 constructor</title>
+    </header>
+
+    <body>
+        <button id='btn'>버튼</button>
+        <script>
+            // 3번째 this
+            var temp = {};
+
+            function machine(){
+                this.name = 'kim';
+            }
+
+            var obj = new machine();
+
+            // 4번째 this
+            document.getElementById('btn').addEventListener('click',function(e){
+                // console.log(this);
+                // console.log(e.currentTarget);
+
+                var arr = [1,2,3];
+                arr.forEach(function(a){
+                    console.log(this);
+                    console.log(a);
+                })
+            })
+
+            var obj2 = {
+                firstName : ['kim','lee','park'],
+                func : function(){
+                    console.log(this);
+                    obj2.firstName.forEach(()=>{    // arrow function은 상위 this를 물려받는다.
+                        console.log(this);
+                    })
+                },
+                func2 : function(){
+                    console.log(this);
+                    obj2.firstName.forEach(function(){    
+                        console.log(this);          // this는 window
+                    })
+                }
+
+            }
+
+            obj2.func();
+
+        </script>
+    </body>
+</html>
