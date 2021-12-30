@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Arrow Function</title>
+    </head>
+
+    <body>
+        <button id='btn'>버튼</button>
+        <button id="버튼">버튼이에요</button>
+
+        <script>
+            var func = (a) => {
+                return a + 10;
+            }
+
+            // parameter 값이 한개면 ()를 생략가능 
+            var func2 = a => {
+                return a + 10;
+            }
+
+            // return값이 한줄이면 중괄호도 생략가능
+            var func3 = a => a + 10;
+
+            // 함수 예제 
+            [1,2,3,4].forEach((a)=>{
+                //console.log(a);
+            })
+
+            document.getElementById('btn').addEventListener('click', (e) => {
+                // arrow func은 this값을 재정의해주지 않음 
+                // e == currentTarget이 성립이 안됨. arrow func을 쓰면 안됨
+                // arrow func을 쓴다면 e.currentTarget이라고 쓰고 사용하면 됨 
+                console.log(this)
+            })
+
+            var obj = {
+                func : () => {
+                    console.log(this);
+                }
+            }
+
+            //obj.func();
+
+            // 예제 1 
+            var 사람 = {
+                name: '손흥민',
+                sayHi: ()=>{
+                    console.log(`안녕 나는 손흥민 ${this.name}`);
+                }
+            }
+
+            사람.sayHi(); //안녕 나는 손흥민
+
+            // 예제 2
+            var 자료 = { 
+                data : [1,2,3,4,5],
+                전부더하기 : function(){
+                    let sum = 0;
+                    this.data.forEach(e => sum = sum + e)
+                    console.log(sum);
+                } 
+            }
+
+
+            자료.전부더하기(); 
+
+            // 예제 3
+            document.getElementById('버튼').addEventListener('click', function(e){
+                setTimeout(()=>{
+                    console.log(this.innerHTML);
+                },1000);
+               
+            });
+
+
+        </script>
+    </body>
+</html>
