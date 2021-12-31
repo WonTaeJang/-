@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>var let const</title>
+    </head>
+
+    <body>
+        <button id='btn'>버튼</button>
+        <button id="버튼">버튼이에요</button>
+
+        <script>
+            // 변수
+            //          선언        할당        범위
+            // var      재선언O     재할당O     function
+            // let      재선언X     재할당O     {}
+            // const    재선언X     재할당X     {}
+
+            const 사람 = {이름: 'kim'}
+            //사람.이름 = 'Park';
+            Object.freeze(사람);    // object 통째로 변경 불가능하게 바꿈 
+
+            // 범위
+            function 함수(){
+                var 이름 = 'kim';
+
+            }
+
+            if(true){
+                let 이름 = 'Park';
+            }
+
+
+        </script>
+    </body>
+</html>
