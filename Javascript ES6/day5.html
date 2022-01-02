@@ -7,8 +7,13 @@
 </head>
 
 <body>
-    <button id='btn'>버튼</button>
-    <button id="버튼">버튼이에요</button>
+    <div style="display : none">모달창0</div>
+    <div style="display : none">모달창1</div>
+    <div style="display : none">모달창2</div>
+
+    <button>버튼0</button>
+    <button>버튼1</button>
+    <button>버튼2</button>
 
     <script>
         // 변수
@@ -35,17 +40,18 @@
         }
 
         // example
-        if (true) {
-            let a = 1;
-            var b = 2;
+        // if (true) {
+        //     let a = 1;
+        //     var b = 2;
+        //     var c = 3;
 
-            if (true) {
-                //console.log(b);
-                let b = 3;
-            }
-
-            console.log(b);
-        }
+        //     if (true) {
+        //         console.log(a);
+        //         console.log(b);
+        //         console.log(c);
+        //         let b = 3;
+        //     }
+        // }
 
         //함수1();
         // function 함수1() {
@@ -53,12 +59,17 @@
         //     let 안녕 = 'Hello!';
         // }
         // error
+        // let 안녕 이 호이스팅이 될텐데 왜 에러가 뜰까? 
+        // let 안녕 이 호이스팅이 되긴하지만 그냥 빈 공간으로 있어서 error가 발생 
+        // var 이였으면 undefined가 선언될거임
 
         // 함수2();
         // var 함수2 = function() {
         //     console.log(안녕);
         //     var 안녕 = 'Hello!';
         // } 
+        // 함수2 = function(){} 이런식으로 만들면 변수에 선언부분(var 함수2)만 호이스팅 되고 함수 할당부분은 호이스팅 되지 않음
+        // 그래서 var 함수2 이거만 호이스팅되면 변수취급이기 때문에 함수2()이건 함수가 아니라고 에러가 발생
 
         // let a = 1;
         // var 함수 = function() {
@@ -66,6 +77,8 @@
         // }
         // console.log(a);
         // 1
+        // 함수가 실행안했기때문에 
+        // 함수(); 를 실행하면 결과 2
 
         // let a = 1;
         // var b = 2;
@@ -73,17 +86,31 @@
         // console.log('let a: ' + a)
         // console.log('window.a: ' + window.a);
         // window.b = 4;
-
         // console.log(a + b);
+        // var b, window.b는 동일한 의미 
+        // let a, window.a 다른 의미 
 
 
-        for (var i = 1; i < 6; i++) { 
-           setTimeout(function() { console.log(i); }, i*1000 ); 
+        for (var i = 1; i < 6; i++) {
+            setTimeout(function () { console.log(i); }, i * 1000);
         }
-        // var -> let setTimeout은 비동기방식과 연관이 있다. 
+        // var -> let setTimeout은 비동기방식과 연관이 있다.
         // for문은 순식간에 실행되는데 setTimeout은 위 코드대로라면 1초후에 console이 찍힌다.
-        // 그래서 var일 경우 이미 i값이 모두 증감된값을 setTimeout이 확인하게 된다. 
+        // 그래서 var일 경우 이미 i값이 모두 증감된값을 setTimeout이 확인하게 된다.
         // let의 경우 중괄호에 따라 영향을 주기때문에 증감이 되어도 해당 중괄호에 let값을 읽기때문에 문제가 없다.
+
+        var 버튼들 = document.querySelectorAll('button');
+        var 모달창들 = document.querySelectorAll('div');
+
+        for (let i = 0; i < 3; i++) {
+            버튼들[i].addEventListener('click', function () {
+                모달창들[i].style.display = 'block';
+            });
+
+        }
+        // 반복문 실행시점과 addEventListener 내부 코드랑 실행시점이 맞지 않아서 발생
+        // let 은 block 단위 변수이기때문에 가능
+
 
     </script>
 </body>
