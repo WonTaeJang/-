@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>... spread operator</title>
-    </head>
 
-    <body>
-        <script>
-           // ... spread operator
-           
-           var array = ['hello', 'world'];
+<head>
+    <meta charset="utf-8">
+    <title>... spread operator</title>
+</head>
 
-           // 1. Array에 붙이면 대괄호를 제거해줍니다.
-           console.log(...array);
+<body>
+    <script>
+        // ... spread operator
 
-           // 2. 문자에 붙이면 펼쳐준다.
-           var 문자 = 'hello';
-           console.log(...문자);    // 'h','e','l','l','o'
+        var array = ['hello', 'world'];
 
-           // 3. 어레이 합치기/복사
-           var a = [1,2,3];
-           var b = [4,5];
+        // 1. Array에 붙이면 대괄호를 제거해줍니다.
+        console.log(...array);
 
-           var c = [...a, ...b];
-           console.log(c); 
+        // 2. 문자에 붙이면 펼쳐준다.
+        var 문자 = 'hello';
+        console.log(...문자);    // 'h','e','l','l','o'
 
-           // 4. 오브젝트 합치기 / Deep copy
-           // 값 중복이 일어나면 뒤에 오는 값으로 덮어씌움
-           var o1 = {a:1, b:2};
-           var o2 = {...o1, c:3};
-           console.log(o2);
+        // 3. 어레이 합치기/복사
+        var a = [1, 2, 3];
+        var b = [4, 5];
 
-           
+        var c = [...a, ...b];
+        console.log(c);
 
-        </script>
-    </body>
+        // 4. 오브젝트 합치기 / Deep copy
+        // 값 중복이 일어나면 뒤에 오는 값으로 덮어씌움
+        var o1 = { a: 1, b: 2 };
+        var o2 = { ...o1, c: 3 };
+        console.log(o2);
+
+        // 함수 파라미터 넣을때
+        function 더하기(a, b, c) {
+            console.log(a + b + c);
+        }
+
+        var 어레이 = [10, 20, 30];
+        더하기.apply(undefined, 어레이) // 옛날방식
+
+        더하기(...어레이);  // 최신 방식
+
+        // apply 함수 개념 설명
+        var person = {
+            인사 : function(){
+                console.log(this.name + '안녕');
+            }
+        }
+
+        var person2 = {
+            name : '손흥민'
+        }
+
+        person.인사.apply(person2, [1,2]); // 인사(1,2)
+        person.인사.call(person2, 1, 2);    // 인사(1,2)
+        
+
+    </script>
+</body>
+
 </html>
