@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Data type</title>
+    </head>
+
+    <body>
+        <script>
+           var 변수 = 1234;
+           var arr = [1,2,3];
+           var obj = {name : 'kim'};
+
+           var name1 = {name : 'kim'};
+           var name2 = name1;
+            name1.name = 'park';
+
+           console.log(name1);  // {name: 'park'}
+           console.log(name2);  // {name: 'park'}
+
+           var name3 = {name : 'kim'};
+
+           function 변경(obj){
+               //obj.name = 'park';
+
+               obj = {name : 'park'}
+           }
+
+           변경(name3);
+
+           console.log(name3.name);
+        </script>
+    </body>
+</html>

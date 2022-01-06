@@ -41,11 +41,8 @@
 
         // 5. array를 만들어주는 함수를 제작하고 싶습니다.
         function 어레이(...rest){
-            let arr = [];
-            for(let i = 0; i < rest.length; i ++){
-                arr.push(rest[i]);
-            }
-            return arr;
+            
+            return rest;
         }
 
         var newArray = 어레이(1,2,3,4,5);
