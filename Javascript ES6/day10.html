@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>constructor</title>
+    </head>
+
+    <body>
+        <script>
+            // constructor
+            // 비슷한 object를 쉽게 찍어낼 수 있음
+
+            var 학생 = {
+                name : 'kim', 
+                age : 15,
+                sayHi : function(){
+                    console.log('안녕하세요' + this.name + '입니다.');
+                }
+            }
+
+            // constructor의 경우 함수명을 대문자로 시작
+            // this: constructor(생성자)에서 새로생성되는 object(instance)
+            function Student(firstName){
+                this.name = firstName;
+                this.age = '15';
+                this.sayHi = function(){
+                    console.log('안녕하세요' + this.name + '입니다.');
+                }
+            }
+
+            var stu1 = new Student('park');
+            var stu2 = new Student('jang');
+
+            stu1.sayHi()
+
+
+            // example
+            // 쇼핑몰에 쓸 상품데이터를 오브젝트로 여러개 만들고 싶습니다. 
+            // Q1. 위처럼 생긴 상품오브젝트들을 뽑아낼 수 있는 constructor를 제작해보세요.
+            // 그리고 실제 상품 두개를 뽑아보십시오.
+            var product1 = { name : 'shirts', price : 50000 };
+            var product2 = { name : 'pants', price : 60000 };
+
+            function Product(name, price){
+                this.name = name;
+                this.price = price;
+                this.tax = function(){
+                    console.log(this.price * 0.1);
+                }
+            }
+
+            var pdt1 = new Product('shirts', 50000);
+            var pdt2 = new Product('pants', 60000);
+
+            // Q2. 상품마다 부가세() 라는 내부 함수를 실행하면 콘솔창에 상품가격 * 10% 만큼의 부가세금액이 출력되도록 하고 싶으면
+            pdt1.tax();
+            pdt2.tax();
+
+        </script>
+    </body>
+</html>
