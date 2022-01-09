@@ -27,6 +27,16 @@
 
             // Array에 sort, map, push 함수들이 있기때문에 arr에서도 사용할 수 있다.
 
+            // prototype은 함수에만 몰래 생성됨
+            // 내 부모 prototype을 검사하고 싶다면 __proto__
+            
+            // __proto__를 이용해 부모님 강제 등록하기
+            var 부모 = {name : 'kim'};
+            var 자식 = {};
+
+            자식.__proto__ = 부모;
+
+            console.log(자식.name);
         </script>
     </body>
 </html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>constructor, prototype 연습문제 4개</title>
+</head>
+
+<body>
+    <script>
+        {
+            // let 학생1 = { name : 'Kim', age : 20 }
+            // let 학생2 = { name : 'Park', age : 21 }
+            // let 학생3 = { name : 'Lee', age : 22 }
+            //하드코딩해서 3개를 만들긴 했는데 앞으로 만들일이 더 많이 생길 것 같아서 constructor를 제작하려고 합니다.
+            /*
+            constructor문법을 사용해서 위의 오브젝트와 똑같은 오브젝트 3개를 한번 뽑아보십시오. 
+    
+            + 여기에 학생1.sayHi()라고 사용하면 "안녕 나는 Kim이야" 라는 글자가 콘솔창에 나오도록 sayHi()라는 함수도 constructor 안에 추가해보세요. 
+            */
+
+            function Student(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            Student.prototype.sayHi = function () {
+                console.log(`안녕 나는 ${this.name}이야`);
+            }
+
+            let 학생1 = new Student('kim', 20);
+            학생1.sayHi();
+
+        }
+
+        // 다음 코드의 출력 결과는 무엇일까요?
+        {
+            function Parent() {
+                this.name = 'Kim';
+            }
+            let a = new Parent();
+
+            a.__proto__.name = 'Park';      // a.__proto__ a의 부모 prototype = Parent.prototype.name
+            console.log(a.name)
+            // 정답: 'Kim' - a가 Parent를 상속받을때 this.name을 가져오기 때문에 a.name을 하면 a의 constructor에 있는 this.name을 먼저 확인
+        }
+
+        // 함수가 안들어가요 엉엉
+        {
+            function Student(이름, 나이) {
+                this.name = 이름;
+                this.age = 나이;
+            }
+
+            Student.prototype.sayHi = () => {
+                //console.log(this);
+                console.log('안녕 나는 ' + this.name + '이야');
+            }
+            let 학생1 = new Student('Kim', 20);
+
+            학생1.sayHi(); //왜 이 코드가 제대로 안나오죠?
+            // arrow function은 this를 초기화 해주지 않기때문에 this.name의 this가 window를 가리킨다.
+        }
+
+        // 모든 array에 적용할 수 있는 함수를 직접 새로 만들려면 어떻게 해야할까요?
+        {
+            let arr = [1,2,3];
+
+            Array.prototype.remove3 = function(){
+                for(let i=0; i < this.length; i++){
+                    if(this[i] == 3)
+                    {
+                        this.splice(i,1);
+                        i--;
+                    }
+                }
+            }
+            arr.remove3();
+
+            console.log(arr); //[1,2]
+        }
+
+    </script>
+</body>
+
+</html>
