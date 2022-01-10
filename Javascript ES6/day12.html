@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ES5, ES6 상속방법</title>
+</head>
+
+<body>
+    <script>
+        // ES5 상속 기능
+        //Object.create(프로토타입object);
+        {
+            let 부모 = { name: 'kim', age: 50 };
+            let 자식 = Object.create(부모);
+
+            // 자식에 속성을 부여하면 자식.age는 자식 객체를 먼저 확인
+            자식.age = 20;
+            자식.sayHi = function () {
+                console.log(`안녕하세요 ${this.name}, 나이: ${this.age}`);
+            }
+
+            let 손자 = Object.create(자식);
+        }
+
+
+        /*
+        Q. 부모로부터 상속받은 50이라는 age가 출력되지 않는 이유는 뭐죠?
+        > 왜냐하면 자바스크립트 오브젝트 자료형에서 특정 data를 꺼낼때 찾는 순서가 있습니다. 
+         자식 age를 꺼내주세요~ 라고 한다면 자식이라는 object가 직접 age를 가지고 있으면 그걸 출력,
+         없으면 자식의 부모 prototype을 뒤져서 age가 거기있으면 그걸 출력 없으면 부모의 부모  prototype을 뒤지는 방식
+        */
+
+        // es6 상속방법
+        // class
+        class 부모 {
+            constructor(name){
+                this.name = name;
+                //this.sayHi = function(){console.log('hello')}// 함수 사용 1
+            }
+
+            //아래의 함수는 부모의 prototype에 추가됨
+            sayHi(){
+                console.log('hi');  // 함수 사용 2
+            }
+        }
+        // 함수 사용 3
+        부모.prototype.sayHello = function(){}
+
+        var 자식 = new 부모('park');
+        //Object.getPrototypeOf(자식) = 자식.__proto__
+
+        // 객체지향 문법을 사용하는 이유
+        // 1. object를 여러개 만들어 쓰려고
+    </script>
+</body>
+
+</html>
