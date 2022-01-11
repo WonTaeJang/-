@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>extends / super</title>
+</head>
+
+<body>
+    <script>
+        // class를 여러개 만들고 싶을때
+        // extends를 이용하여 상속으로 class를 만들떄 사용
+
+        class 할아버지 {
+            constructor(name){
+                this.성 = 'kim';
+                this.이름 = name;
+            }
+
+            sayHi(){
+                console.log('안녕 저는 할아버지에요');
+            }
+        }
+
+        class 아버지 extends 할아버지 {
+            constructor(name){
+                // extends해서 만든 class는 this를 쓸 수 없음 
+                // super()를 사용하여 extends 객체의 생성자 속성을 물려받음
+                super(name);
+                this.나이 = 50; 
+            }
+
+            sayHi(){
+                //console.log('안녕 저는 아버지에요');
+                super.sayHi();  // 부모 prototype에 있는 sayHi() 를 실행시켜주세요~
+            }
+        }
+
+        var 할아버지1 = new 할아버지('만덕');
+        var 아버지1 = new 아버지('만수');
+        아버지1.sayHi();    // 
+    </script>
+</body>
+
+</html>

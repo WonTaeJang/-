@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>class, extends, getter, setter 연습문제 5개</title>
+</head>
+
+<body>
+    <script>
+        // 1. 직접 class 구조 만들어보기
+        class 강아지{
+            constructor(type, color){
+                this.type = type;
+                this.color = color;
+            }
+        }
+
+        var 강아지1 = new 강아지('말티즈', 'white'); 
+        var 강아지2 = new 강아지('진돗개', 'brown'); 
+
+        // 2. 이번엔 고양이관련 object들을 만들고 싶습니다. 
+        class 고양이 extends 강아지 {
+            constructor(type, color, age){
+                super(type, color);
+                this.age = age;
+            }
+        }
+
+        var 고양이1 = new 고양이('코숏', 'white', 5);
+        var 고양이2 = new 고양이('러시안블루', 'brown', 2);
+
+        // 3. 고양이와 강아지 object들에 기능을 하나 추가하고 싶습니다. 
+        강아지.prototype.한살먹기 = function(){
+            if(this instanceof 고양이){
+                this.age ++;
+                console.log(this.age);
+            }    
+        }
+
+        // 4. get/set을 이용해봅시다
+        /*
+            (1) 모든 Unit의 인스턴스는 공격력, 체력 속성이 있으며 기본 공격력은 5, 기본 체력은 100으로 설정되어 있어야 합니다.
+            (2) 모든 Unit의 인스턴스는 전투력을 측정해주는 battlePoint라는 getter가 있습니다.
+            console.log( 인스턴스.battlePoint ) 이렇게 사용하면 현재 공격력과 체력을 더한 값을 콘솔창에 출력해주어야합니다.
+            (3) 모든 Unit의 인스턴스는 heal이라는 setter가 있습니다.
+            인스턴스.heal = 50 이렇게 사용하면 체력 속성이 50 증가해야합니다.
+        */
+        class Unit{
+            constructor(){
+                this.atk = 5;
+                this.hp = 100;
+            }
+
+            get battlePoint(){
+                return this.atk + this.hp;
+            }
+
+            set heal(add_hp){
+                this.hp += add_hp;
+            }
+        }
+
+        var instance1 = new Unit();
+        console.log(instance1.battlePoint);
+        instance1.heal = 50;
+        console.log(instance1.battlePoint);
+
+        // 5. get/set을 이용해봅시다2 
+        /*
+        var data = {
+            odd : [],
+            even : []
+        }
+        (1) data 오브젝트안에 setter 역할 함수를 하나 만들어보십시오.
+        (2) data 오브젝트안에 getter 역할 함수를 하나 만들어보십시오.
+        */
+        var data = {
+            odd : [],
+            even : [],
+            setter : function(...arr){
+                //console.log(arr);
+                arr.forEach(element => {
+                    //console.log(element)
+                    if(parseInt(element) % 2 == 1)    // odd
+                    {
+                        console.log(element);
+                        this.odd.push(element);
+                    }
+                    else
+                    {
+                        this.even.push(element);
+                    }
+                })
+            },
+            getter : function(){
+                return [...this.odd, ...this.even ].sort()
+            }
+        }
+
+        data.setter(6,1,2,3,4,5);
+        data.getter();
+    </script>
+</body>
+
+</html>

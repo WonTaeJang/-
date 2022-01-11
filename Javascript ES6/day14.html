@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>getter, setter</title>
+</head>
+
+<body>
+    <script>
+        // object
+        {
+            let 사람 = {
+                name: 'Park',
+                age: 30,
+                get nextAge() {
+                    // getter 함수는 return이 들어가야한다.
+                    // 파라미터가 없어야함
+                    return this.age + 1;
+                },
+                set setAge(나이) {
+                    // setter 함수는 파라미터 1개가 있어야함
+                    this.age = parseInt(나이);  // 데이터 수정전 미리 검사기능
+                }
+            }
+
+            // 사람.nextAge(); // 31
+            사람.nextAge; // get keyword (getter)
+
+            //사람.setAge(20);    // 데이터를 대입하기전에 값을 확인하는 작업을 넣을 수 있음 
+            사람.setAge = '20'; // set keyword (setter)
+        }
+
+        // class
+        class 사람 {
+            constructor(){
+                this.name = 'Park'
+                this.age = 20;
+            }
+
+            get nextAge(){
+                return this.age + 1
+            }
+
+            set setAge(나이){
+                this.age = parseInt(나이);
+            }
+        }
+
+        var 사람1 = new 사람();
+        사람1.nextAge;
+        사람1.setAge = 200;
+
+
+    </script>
+</body>
+
+</html>
