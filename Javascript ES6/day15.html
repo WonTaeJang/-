@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Destructuring</title>
+</head>
+
+<body>
+    <script>
+        var arr = [2,3,4];
+
+        // var a = arr[0];
+        // var b = arr[1];
+
+        // array destructuring
+        //var [a, b, c] = [2, 3, 4];
+        var [a, b, c = 10] = [2, 3];
+
+        // object 데이터를 꺼내 변수에 담으려면 
+        // 변수명을 key 명과 똑같이 사용해야함
+        // name : 나이 로하면 key값 변수가 바뀐다.
+        {
+            let obj = {name:'kim', age : 30};
+            let {name : 나이, age = 31} = obj;
+        }
+
+        // 반대로 변수들을 object에 집어넣고 싶은 경우
+        {
+            let name = 'kim';
+            let age = 30;
+            //var obj = {name: name, age : age};
+            let obj = {name, age};  // object key,value 값이 같을때 사용가능함
+        }
+
+        // 함수에 object를 넣고싶을때 
+        // destructuring 문법 사용 가능
+        {
+            let obj = {name: 'kim', age: 30};
+            function 함수({name, age}){
+                console.log(name);
+                console.log(age);
+            }
+            함수(obj);
+            // array 경우
+            function 함수2([name, age]){
+                console.log(name);
+                console.log(age);
+            }
+            함수2([1,2]);
+        }
+
+        // Q1. 변수를 마구 만들었는데 말입니다..
+        var [number, address] = [ 30, 'seoul' ];
+        var {address : a , number = 20 } = { address, number };
+        console.log(address, number);
+        
+        // Q2. 다음과 같은 Object에서 데이터를 뽑아서 변수를 만들고 싶습니다. 
+        let 신체정보 = {
+            body: {
+                height: 190,
+                weight: 70
+            },
+            size: ["상의 Large", "바지 30인치"],
+        };
+        
+        let {
+            body: {
+                height : 키,
+                weight : 몸무게
+            },
+            size: [상의, 하의]
+        } = 신체정보;
+
+        console.log(키, 몸무게, 상의, 하의);
+
+
+
+    </script>
+</body>
+
+</html>
