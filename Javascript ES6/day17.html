@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Promise</title>
+</head>
+
+<body>
+    <script>
+    function fnc1(fnc){
+        console.log(1);
+        fnc();
+    }  
+
+    function fnc2(){
+        console.log(2);
+    }
+
+    // fnc1 다음에 fnc2를 실행하고 싶을때 
+    // 콜백 함수: 함수의 디자인 패턴일 뿐 
+    fnc1(fnc2);
+        
+    // 콜백함수의 문제점 보안 -> promise
+
+    </script>
+    
+</body>
+
+</html>
