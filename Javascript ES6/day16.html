@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>import / export</title>
+</head>
+
+<body>
+    <script>
+        
+        
+    </script>
+    <script type='module'>
+        // a 는 작명 자유롭게 (export default)
+        // export인 경우에는 변수를 맞춰줘야한다.
+        import 작명,{a,b} from '/library.js';   // export default, {export}
+        console(a);
+
+        // export 재 작명
+        import {a as a1} from '/library.js';
+
+        // 모두 import
+        import c,* as 별명 from '/library.js';
+        console.log(별명.a);
+        console.log(별명.b);
+
+        // IE에서는 import가 되지않음
+    </script>
+</body>
+
+</html>
