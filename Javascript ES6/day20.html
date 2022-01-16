@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>반복문</title>
+</head>
+
+<body>
+    <script>
+        //var obj = {name:'kim', age:30}
+
+
+        // for ( var i = 0; i<3; i++){
+
+        // }
+
+        // [1,2,3].forEach();
+
+        // object에 있던 값을 전부 하나씩 꺼내서 사용할 때 
+        // Object.getOwnPropertyDescriptor(obj,'name'); object에 name에 대한 정보를 알 수 있다.
+        //1. for in 반복문: enumerable 한 것만 반복해줌
+        //2. 부모의 prototype도 반복해줌
+        //3. Object 자료형에만 쓴다.
+        class 부모 {
+
+
+        }
+        부모.prototype.name = 'Park';
+        var obj = new 부모();
+
+
+        for (var key in obj) {
+            // 내가 직접 가지고 있는 값만 반복시키고 싶으면 
+            if (obj.hasOwnProperty(key))
+                console.log(obj[key]);
+        }
+
+        //for of 반복문: Array, 문자, arguments, NodeList, Map, Set
+        // 특징: iterable한 자료혀엥만 사용가능
+        // arr[Symbol.iterator] 
+        var arr = [2, 3, 4, 5];
+
+        for (var index of arr) {
+            console.log(index);
+        }
+
+        // 어떤 놈이 key값 마지막 부분에 오타를 섞어놨습니다.
+        var products = [
+            {
+                name1: 'chair',
+                price1: 7000,
+            },
+            {
+                name2: 'sofa',
+                price: 5000,
+            },
+            {
+                name1: 'desk',
+                price3: 9000,
+            },
+        ];
+
+        for(var product of products){
+            
+        }
+
+        products[0]['name1'] = ['name'];
+
+        console.log(products);
+
+
+
+    </script>
+
+</body>
+
+</html>
