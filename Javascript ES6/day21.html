@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Symbol</title>
+</head>
+
+<body>
+    <script>
+        // 심볼은 오프젝트의 키값으로 사용가능 
+        // 비밀스런 데이터를 저장
+        // import 해온 파일 / 라이브러리 쓸 때 거기었던 object에 자료를 추가하고 싶을때 
+        var 심볼 = Symbol('');
+
+        var weight = Symbol('비밀 몸무게')
+        var height = Symbol('비밀 키');
+
+        var person = { name: 'kim', [height]: 160 };
+        person.weight = 100;
+        person[weight] = 101;    // enumerable한 속성이 없어서 출력이 안됨
+        //person[height] = 160;
+
+        for (var key in person) {
+            // symbol 값은 출력이 안됨
+            console.log(person[key]);
+        }
+
+        // Symbol 특징 1.
+        // 설명이 같다고 같은 symbol이 아님
+
+        var a = Symbol('설명1');
+        var b = Symbol('설명1');
+
+        console.log(a===b);
+
+        // Symbol 특징 2. 
+        // 전역 변수같은 전역 Symbol
+        var c = Symbol.for('설명3');
+        var d = c;
+
+        console.log(c === d);
+
+        var arr = [2,3,4];
+        // Symbol 내장 함수
+        arr[Symbol.iterator];
+
+    </script>
+
+</body>
+
+</html>
