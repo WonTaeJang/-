@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Web Components</title>
+</head>
+<custom-input name='123'></custom-input>
+<custom-input name='비번'></custom-input>
+<body>
+    <script>
+        // Web Components
+        // js 문법으로 구현할 수 있는 브라우저 기본 기능
+        // <커스텀 태그>로 길고 복잡한 HTML 축약하는 법
+        // <커스텀 태그> 장점은 html 중복제거, 다른페이지에서 재활용 가능
+        
+        class 클래스 extends HTMLElement{
+            connectedCallback(){
+                let name = this.getAttribute('name');
+                this.innerHTML = `<label>${name} 이메일인풋이에요</label><input>`
+            }
+
+            static get observedAttributes(){
+                return ['name']
+            }
+            attributeChangedCallback(){
+                console.log(this.getAttribute('name'));
+            }
+        }
+
+        customElements.define('custom-input', 클래스);
+    </script>
+
+</body>
+
+</html>
