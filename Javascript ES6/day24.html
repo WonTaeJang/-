@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>shadow DOM과 template으로 HTML 모듈화하기</title>
+</head>
+
+<body>
+    <input type="range">
+    <div id="mordor"></div>
+    <custom-input></custom-input>
+
+    <!-- HTML 임시 보관함 <template> -->
+    <template id='template1'>
+        <div>
+            <label>이메일을 입력하세요.</label><input>
+            <style>label {color: red}</style>
+        </div>
+    </template>
+
+    <script>
+        // web components + shadow DOM 을 이용하면 완벽한 HTML 모듈화
+        document.querySelector('#mordor').attachShadow({mode:'open'});
+        document.querySelector('#mordor').shadowRoot.innerHTML = '<p>심연에서 왔도다</p>'
+    
+        class 클래스 extends HTMLElement{
+            connectedCallback(){
+                this.attachShadow({mode : 'open'});
+                this.shadowRoot.append(template1.content.cloneNode(true));
+            
+                // shadow DOM에 이벤트리스너도 부착가능
+                let el = this.shadowRoot.querySelector('label');
+                el.addEventListener('click', function(){
+                    console.log('클릭함')
+                });
+            }
+        }
+
+        customElements.define('custom-input', 클래스);
+    </script>
+
+</body>
+
+</html>
