@@ -14,7 +14,6 @@ var dino = {
     }
 }
 
-
 class Cactus{
     constructor(){
         this.x = 500;
@@ -30,6 +29,7 @@ class Cactus{
 
 var timer = 0; 
 var cactus_array = [];
+var 점프timer = 0;
 
 function 프레임마다실행(){
     requestAnimationFrame(프레임마다실행);
@@ -37,17 +37,53 @@ function 프레임마다실행(){
 
     ctx.clearRect(0,0,canvas.width, canvas.height)
 
-    if(timer % 144 === 0){
+    // 144프레임마다 장애물 소환 후 array에 보관
+    // 필요없어진 장애물은 제거
+    if(timer % 120 === 0){
         var cactus = new Cactus();
         cactus_array.push(cactus);
     }
-    cactus_array.forEach((a)=>{
+
+    cactus_array.forEach((a, i, o)=>{
+        // x좌표가 0미만이면 제거
+
+        if(a.x < 0){
+            o.splice(i,1);
+        }
+
+        
+
         a.x--;
         a.draw();
     })
    
+    if(점프중 == true)
+    {
+        dino.y --;
+        점프timer ++;
+    }
+    if(점프중 == false){
+        if(dino.y < 200){
+            dino.y ++;
+        }
+        
+    }
+    if(점프timer > 100){
+        점프중 = false;
+        점프timer = 0;
+    }
+    
+    
     dino.draw();
 }
 
 프레임마다실행();
 
+var 점프중 = false;
+
+document.addEventListener('keydown', function(e){
+    if(e.code === 'Space')
+    {
+        점프중 = true;
+    }
+});
