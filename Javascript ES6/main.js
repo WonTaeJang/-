@@ -106,5 +106,5 @@ document.addEventListener('keydown', function(e){
     if(e.code === 'Space')
     {
         점프중 = true;
-    }
+    } 
 });
