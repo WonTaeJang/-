@@ -22,3 +22,7 @@
 - 코드가 매우 짧고 쉬워서 빠른 개발 가능
 - 만들게 웹서비스가 아니면 좋지 않다. 
 
+## 기타 기능
+- nodemon: 저장을 하면 자동으로 서버를 재실행해준다.
+- npm install -g nodemon
+- nodemon server.js 
