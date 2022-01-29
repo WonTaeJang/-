@@ -4,9 +4,12 @@ const bodyParser = require('body-parser');
 app.use(express.urlencoded({extended: true})) 
 app.use(bodyParser.urlencoded({extended: true})) 
 
-app.listen(8080, function(){
-    console.log('listening on 8080');
-});
+const MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',function(err, client){
+    app.listen(8080, function(){
+        console.log('listening on 8080');
+    });
+})
 
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/html/index.html');
