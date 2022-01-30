@@ -6,6 +6,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',function(err, client){
+    if(err){
+        return console.log(err);
+    }    
+
     app.listen(8080, function(){
         console.log('listening on 8080');
     });
