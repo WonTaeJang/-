@@ -6,6 +6,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 var db;
 const MongoClient = require('mongodb').MongoClient;
+
+app.set('view engine','ejs');
+
 MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',function(err, client){
     if(err){
         return console.log(err);
@@ -36,10 +39,16 @@ app.post('/add', function(req, res){
     console.log(req.body.data);
     console.log(req.body.title);
 
-    db.collection('post').insertOne(req.body, function(_err, result){
-        console.log('저장완료,' + result);
+    db.collection('post').insertOne({제목: req.body.title, 날짜 : req.body.date} , function(_err, result){
+        console.log('저장완료');
     });
 });
+
+// ejs는 views 폴더안에서 작성해야한다.
+app.get('/list', function(req, res){
+    res.render('list.ejs');
+});
+
 
 app.get('/beauty', function(req,res){
     res.send('뷰티용품 쇼핑 페이지임.')
