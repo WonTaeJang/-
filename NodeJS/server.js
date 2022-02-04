@@ -46,7 +46,10 @@ app.post('/add', function(req, res){
 
 // ejs는 views 폴더안에서 작성해야한다.
 app.get('/list', function(req, res){
-    res.render('list.ejs');
+    db.collection('post').find().toArray(function(err, result){
+        console.log(result)
+        res.render('list.ejs', {posts : result});
+    })
 });
 
 
