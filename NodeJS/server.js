@@ -35,26 +35,33 @@ app.get('/write', function(req,res){
 });
 
 app.post('/add', function(req, res){
-    res.send('전송완료')
-    console.log(req.body.data);
-    console.log(req.body.title);
+    res.send('requset success')
+    // console.log(req.body.data);
+    // console.log(req.body.title);
 
     // 글 번호 달기
     // 유니크한 글번호를 달기 
     db.collection('counter').findOne({name : '게시물갯수'}, function(err, result){
-        if(err){
-            console.log(err);
-            return;
-        }
+        if(err){return console.log(err)}
 
         //console.log(result.totalPost);
         var 총게시물갯수 = result.totalPost;
 
         db.collection('post').insertOne({_id : 총게시물갯수 + 1 , 제목: req.body.title, 날짜 : req.body.date} , function(_err, result){
-            console.log('저장완료');
+            console.log('record success');
+
+            // 총게시물갯수 증감 
+            // 콜백함수로 만들어야 순차적으로 진행이 확실함
+            //db.collection('counter').updateOne({어떤데이터를 수정할지},{수정 값}, function(){})
+            // operator set: {$set : {key: 바꿀 값}}
+            // operator set: {$inc : {key: 기존값에 더해줄 값}}
+            db.collection('counter').updateOne({name: '게시물갯수'},{$inc : {totalPost : 1} }, function(err, result){
+                if(err){return console.log(err)}
+                console.log('db counter update success')
+            });
+
         });
 
-        // 총게시물갯수 증감 
         
     });
 
@@ -64,7 +71,7 @@ app.post('/add', function(req, res){
 // ejs는 views 폴더안에서 작성해야한다.
 app.get('/list', function(req, res){
     db.collection('post').find().toArray(function(err, result){
-        console.log(result)
+        //console.log(result)
         res.render('list.ejs', {posts : result});
     })
 });
