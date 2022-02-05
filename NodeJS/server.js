@@ -39,9 +39,26 @@ app.post('/add', function(req, res){
     console.log(req.body.data);
     console.log(req.body.title);
 
-    db.collection('post').insertOne({제목: req.body.title, 날짜 : req.body.date} , function(_err, result){
-        console.log('저장완료');
+    // 글 번호 달기
+    // 유니크한 글번호를 달기 
+    db.collection('counter').findOne({name : '게시물갯수'}, function(err, result){
+        if(err){
+            console.log(err);
+            return;
+        }
+
+        //console.log(result.totalPost);
+        var 총게시물갯수 = result.totalPost;
+
+        db.collection('post').insertOne({_id : 총게시물갯수 + 1 , 제목: req.body.title, 날짜 : req.body.date} , function(_err, result){
+            console.log('저장완료');
+        });
+
+        // 총게시물갯수 증감 
+        
     });
+
+    
 });
 
 // ejs는 views 폴더안에서 작성해야한다.
@@ -51,7 +68,6 @@ app.get('/list', function(req, res){
         res.render('list.ejs', {posts : result});
     })
 });
-
 
 app.get('/beauty', function(req,res){
     res.send('뷰티용품 쇼핑 페이지임.')
