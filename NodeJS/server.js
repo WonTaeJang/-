@@ -61,11 +61,7 @@ app.post('/add', function(req, res){
             });
 
         });
-
-        
     });
-
-    
 });
 
 // ejs는 views 폴더안에서 작성해야한다.
@@ -78,5 +74,19 @@ app.get('/list', function(req, res){
 
 app.get('/beauty', function(req,res){
     res.send('뷰티용품 쇼핑 페이지임.')
+});
+
+app.delete('/delete', function(req, res){
+    console.log(req.body);
+
+    // string to int
+    req.body._id = parseInt(req.body._id); 
+
+
+    //db.collection('post').deleteOne({}, function(){})
+    db.collection('post').deleteOne(req.body, function(err, result){
+        if(err){return console.log(err)}
+        console.log('db counter delete success')
+    });
 });
 
