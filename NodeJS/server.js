@@ -82,11 +82,15 @@ app.delete('/delete', function(req, res){
     // string to int
     req.body._id = parseInt(req.body._id); 
 
-
     //db.collection('post').deleteOne({}, function(){})
     db.collection('post').deleteOne(req.body, function(err, result){
-        if(err){return console.log(err)}
+        if(err){
+            res.status(400);
+            return console.log(err)
+        }
+
         console.log('db counter delete success')
+        res.status(200).send({message : '성공했습니다.'});
     });
 });
 
