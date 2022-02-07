@@ -27,7 +27,12 @@ MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net
 })
 
 app.get('/', function(req,res){
-    res.sendFile(__dirname + '/html/index.html');
+    //res.sendFile(__dirname + '/html/index.html');
+
+    db.collection('post').find().toArray(function(err, result){
+        //console.log(result)
+        res.render('list.ejs', {posts : result});
+    })
 });
 
 app.get('/write', function(req,res){
