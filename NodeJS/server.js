@@ -9,6 +9,9 @@ const MongoClient = require('mongodb').MongoClient;
 
 app.set('view engine','ejs');
 
+// static 폴더
+app.use('/public', express.static('public'));
+
 MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',function(err, client){
     if(err){
         return console.log(err);
@@ -35,8 +38,13 @@ app.get('/', function(req,res){
     })
 });
 
+app.get('/index', function(req,res){
+    res.render('index.ejs');
+});
+
 app.get('/write', function(req,res){
-    res.sendFile(__dirname + '/html/write.html');
+    //res.sendFile(__dirname + '/html/write.html');
+    res.render('write.ejs');
 });
 
 app.post('/add', function(req, res){
