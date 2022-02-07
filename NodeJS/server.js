@@ -94,3 +94,19 @@ app.delete('/delete', function(req, res){
     });
 });
 
+// default/?? parameter로 요청가능한 URL 만들기
+app.get('/detail/:id', function(req, res){
+    db.collection('post').findOne({_id : parseInt(req.params.id)}, function(err, result){
+        console.log(result);
+
+        if(err){
+            res.status(400);
+            return ;
+        }
+
+        res.render('detail.ejs', {data : result}) 
+    })
+
+    
+});
+
