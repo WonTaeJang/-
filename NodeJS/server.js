@@ -64,6 +64,26 @@ app.get('/edit/:id', function(req,res){
     })
 });
 
+app.put('/edit', function (req, res) {
+    db.collection('post').updateOne(
+        {
+            _id: parseInt(req.body.id)
+        },
+        {
+            $set:
+            {
+                제목: req.body.title,
+                날짜: req.body.date
+            }
+        },
+        function (err, result) {
+            if (err) { return console.log(err) }
+            console.log('수정 완료')
+
+            res.redirect('/list');
+        });
+});
+
 app.post('/add', function(req, res){
     res.send('requset success')
     // console.log(req.body.data);

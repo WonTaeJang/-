@@ -44,7 +44,7 @@
         <p>할일 마감 날짜 : <%= posts[i].날짜 %>
         </p>
         <button class="btn btn-danger delete" data-id="<%= posts[i]._id %>">삭제</button>
-        <button class="btn" data-id="<%= posts[i]._id %>">수정</button>
+        <button class="btn modify" data-id="<%= posts[i]._id %>">수정</button>
       </li>
       <% } %>
   </ul>
@@ -74,6 +74,10 @@
     }).fail(function(a,b,c){
       console.log(a,b,c)
     });
+  })
+
+  $('.modify').click(function (e){
+    location.href = `/edit/${e.target.dataset.id}`;
   })
 
   $('.list-group-item').click(function(e){
