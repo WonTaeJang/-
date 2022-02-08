@@ -7,6 +7,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 var db;
 const MongoClient = require('mongodb').MongoClient;
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 app.set('view engine','ejs');
 
 // static 폴더
@@ -42,9 +44,24 @@ app.get('/index', function(req,res){
     res.render('index.ejs');
 });
 
+// create
 app.get('/write', function(req,res){
     //res.sendFile(__dirname + '/html/write.html');
     res.render('write.ejs');
+});
+
+// update
+app.get('/edit/:id', function(req,res){
+    db.collection('post').findOne({_id : parseInt(req.params.id)}, function(err, result){
+        //console.log(result);
+
+        if(err){
+            res.status(400);
+            return ;
+        }
+
+        res.render('edit.ejs', {data : result}) 
+    })
 });
 
 app.post('/add', function(req, res){
