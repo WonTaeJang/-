@@ -14,7 +14,10 @@ app.set('view engine', 'ejs');
 // static 폴더
 app.use('/public', express.static('public'));
 
-MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function (err, client) {
+// env
+require('dotenv').config();
+
+MongoClient.connect(process.env.DB_URL, function (err, client) {
     if (err) {
         return console.log(err);
     }
@@ -26,7 +29,7 @@ MongoClient.connect('mongodb+srv://mongoTest:!Q2w3e4r@cluster0.31lzr.mongodb.net
     //     console.log('저장완료');
     // });
 
-    app.listen(8080, function () {
+    app.listen(process.env.PORT, function () {
         console.log('listening on 8080');
     });
 })
