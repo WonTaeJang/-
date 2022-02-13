@@ -179,6 +179,21 @@ app.post('/login', passport.authenticate('local', {
     res.redirect('/');
 });
 
+app.get('/mypage', login_check, function(req, res){
+    // 요청.user는 deserializeUser()를 통해 얻은 값
+    console.log(req.user);
+    res.render('mypage.ejs', { ur : req.user });
+});
+
+// 마이페이지 접속 전 실행할 미들웨어
+function login_check(req ,res, next){
+    if(req.user){
+        next();
+    } else {
+        res.send('login fail');
+    }
+}
+
 passport.use(new LocalStrategy({
     usernameField: 'id',
     passwordField: 'pw',
@@ -202,6 +217,11 @@ passport.serializeUser(function(user,done){
     done(null, user.id);
 });
 
-passport.deserializeUser(function(아이디, done){
-    done(null, {});
+// 세션이 있는지 없는지 찾을때 
+// 로그인한 유저의 개인정보를 DB에서 찾는 역할
+passport.deserializeUser(function(아이디, done){ 
+    db.collection('login').findOne({id : 아이디}, function(에러, 결과){
+        done(null, 결과);
+    })
+    
 });
