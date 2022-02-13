@@ -14,8 +14,8 @@ app.set('view engine', 'ejs');
 // static 폴더
 app.use('/public', express.static('public'));
 
-// env
-require('dotenv').config();
+// env test
+require('dotenv').config(); 
 
 MongoClient.connect(process.env.DB_URL, function (err, client) {
     if (err) {
