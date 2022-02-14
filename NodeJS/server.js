@@ -125,6 +125,15 @@ app.get('/list', function (req, res) {
     })
 });
 
+app.get('/search', (req, res) => {
+    console.log(req.query.value);
+
+    db.collection('post').find({제목:req.query.value}).toArray(function (err, result) {
+        //console.log(result)
+        res.render('search.ejs', { posts: result });
+    })
+})
+
 app.get('/beauty', function (req, res) {
     res.send('뷰티용품 쇼핑 페이지임.')
 });
