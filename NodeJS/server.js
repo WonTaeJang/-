@@ -128,7 +128,39 @@ app.get('/list', function (req, res) {
 app.get('/search', (req, res) => {
     console.log(req.query.value);
 
-    db.collection('post').find({제목:req.query.value}).toArray(function (err, result) {
+    // 정확히 일치하는것만 찾아줌  
+    // 해결방법: 정규식 - /req.query.value/ // 게시물이 많으면 문제가 될 수 있음
+    //          mongodb indexing 사용 - Binary Search 
+    // 인사하기 운동하기 이런식으로 검색하면 or 검색
+    // - 는 검색에 포함 안되게 
+    // 한글 글자단어 일부만 서칭할경우 검색이 안됨
+    // 해결책 - 검색할 문서의 양을 제한두기
+    // 글자 단어 띄어쓰기기준을 두글자 단어 기준으로 바꾸면 됨 (mongodb 설치필요)
+    // db.collection('post').find({$text: {$search: req.query.value}}).toArray(function (err, result) {
+    //     //console.log(result)
+    //     res.render('search.ejs', { posts: result });
+    // })
+
+
+    // search indexes를 사용할려면 aggregate를 사용해야함
+    // 단어로 검색 가능
+    var 검색조건 = [
+        {
+          $search: {
+            index: 'titleSearch',
+            text: {
+              query: req.query.value,
+              path: '제목'  // 제목날짜 둘다 찾고 싶으면 ['제목', '날짜']
+            }
+          }
+        }, 
+        { $sort : {_id : 1}}, // 결과 정렬하기
+        { $limit : 10}  // 검색 개수 제한
+        //{ $project : {제목 1, _id: 0, score: {$meta: "searchScore"}}} 검색결과에서 필터주기
+      ] 
+    
+    db.collection('post').aggregate(검색조건).toArray(function (err, result) {
+       
         //console.log(result)
         res.render('search.ejs', { posts: result });
     })
