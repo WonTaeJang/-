@@ -87,36 +87,6 @@ app.put('/edit', function (req, res) {
         });
 });
 
-app.post('/add', function (req, res) {
-    res.send('requset success')
-    // console.log(req.body.data);
-    // console.log(req.body.title);
-
-    // 글 번호 달기
-    // 유니크한 글번호를 달기 
-    db.collection('counter').findOne({ name: '게시물갯수' }, function (err, result) {
-        if (err) { return console.log(err) }
-
-        //console.log(result.totalPost);
-        var 총게시물갯수 = result.totalPost;
-
-        db.collection('post').insertOne({ _id: 총게시물갯수 + 1, 제목: req.body.title, 날짜: req.body.date }, function (_err, result) {
-            console.log('record success');
-
-            // 총게시물갯수 증감 
-            // 콜백함수로 만들어야 순차적으로 진행이 확실함
-            //db.collection('counter').updateOne({어떤데이터를 수정할지},{수정 값}, function(){})
-            // operator set: {$set : {key: 바꿀 값}}
-            // operator set: {$inc : {key: 기존값에 더해줄 값}}
-            db.collection('counter').updateOne({ name: '게시물갯수' }, { $inc: { totalPost: 1 } }, function (err, result) {
-                if (err) { return console.log(err) }
-                console.log('db counter update success')
-            });
-
-        });
-    });
-});
-
 // ejs는 views 폴더안에서 작성해야한다.
 app.get('/list', function (req, res) {
     db.collection('post').find().toArray(function (err, result) {
@@ -170,24 +140,6 @@ app.get('/beauty', function (req, res) {
     res.send('뷰티용품 쇼핑 페이지임.')
 });
 
-app.delete('/delete', function (req, res) {
-    console.log(req.body);
-
-    // string to int
-    req.body._id = parseInt(req.body._id);
-
-    //db.collection('post').deleteOne({}, function(){})
-    db.collection('post').deleteOne(req.body, function (err, result) {
-        if (err) {
-            res.status(400);
-            return console.log(err)
-        }
-
-        console.log('db counter delete success')
-        res.status(200).send({ message: '성공했습니다.' });
-    });
-});
-
 // default/?? parameter로 요청가능한 URL 만들기
 app.get('/detail/:id', function (req, res) {
     db.collection('post').findOne({ _id: parseInt(req.params.id) }, function (err, result) {
@@ -226,6 +178,7 @@ app.post('/login', passport.authenticate('local', {
 app.get('/mypage', login_check, function(req, res){
     // 요청.user는 deserializeUser()를 통해 얻은 값
     console.log(req.user);
+    console.log(req.user._id);
     res.render('mypage.ejs', { ur : req.user });
 });
 
@@ -268,4 +221,62 @@ passport.deserializeUser(function(아이디, done){
         done(null, 결과);
     })
     
+});
+
+app.post('/register', function(req, res){
+    // 아이디 중복검사하고 저장하기 
+    db.collection('login').insertOne({id : req.body.id, pw : req.body.pw}, function(err, result){
+        res.redirect('/');
+    })
+})
+
+app.post('/add', function (req, res) {
+    res.send('requset success')
+    // console.log(req.body.data);
+    // console.log(req.body.title);
+
+    // 글 번호 달기
+    // 유니크한 글번호를 달기 
+    db.collection('counter').findOne({ name: '게시물갯수' }, function (err, result) {
+        if (err) { return console.log(err) }
+
+        //console.log(result.totalPost);
+        var 총게시물갯수 = result.totalPost;
+        var 저장할거 = { _id: 총게시물갯수 + 1, 제목: req.body.title, 날짜: req.body.date, 작성자 : req.user._id };
+
+        db.collection('post').insertOne(저장할거, function (_err, result) {
+            console.log('record success');
+
+            // 총게시물갯수 증감 
+            // 콜백함수로 만들어야 순차적으로 진행이 확실함
+            //db.collection('counter').updateOne({어떤데이터를 수정할지},{수정 값}, function(){})
+            // operator set: {$set : {key: 바꿀 값}}
+            // operator set: {$inc : {key: 기존값에 더해줄 값}}
+            db.collection('counter').updateOne({ name: '게시물갯수' }, { $inc: { totalPost: 1 } }, function (err, result) {
+                if (err) { return console.log(err) }
+                console.log('db counter update success')
+            });
+
+        });
+    });
+});
+
+app.delete('/delete', function (req, res) {
+    console.log(req.body);
+
+    // string to int
+    req.body._id = parseInt(req.body._id);
+
+    var 삭제할데이터 = {_id : req.body._id, 작성자 : req.user._id};
+
+    //db.collection('post').deleteOne({}, function(){})
+    db.collection('post').deleteOne(req.body, function (err, result) {
+        if (err) {
+            res.status(400);
+            return console.log(err)
+        }
+
+        console.log('db counter delete success')
+        res.status(200).send({ message: '성공했습니다.' });
+    });
 });
