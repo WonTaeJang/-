@@ -280,3 +280,19 @@ app.delete('/delete', function (req, res) {
         res.status(200).send({ message: '성공했습니다.' });
     });
 });
+
+// 라우터파일에 미들웨어 적용하고 싶으면 
+router.use(login_check);
+
+// app.use: 미들웨어를 쓰고 싶을때 ,해당 경로에 요청과 응답 사이에 실행
+app.use('/shop', login_check, require('./routes/shop.js'));
+app.use('/board/sub', require('./routes/board.js'));
+
+// 마이페이지 접속 전 실행할 미들웨어
+function login_check(req ,res, next){
+    if(req.user){
+        next();
+    } else {
+        res.send('login fail');
+    }
+}
