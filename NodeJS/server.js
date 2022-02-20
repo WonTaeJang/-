@@ -281,18 +281,50 @@ app.delete('/delete', function (req, res) {
     });
 });
 
-// 라우터파일에 미들웨어 적용하고 싶으면 
-router.use(login_check);
+
 
 // app.use: 미들웨어를 쓰고 싶을때 ,해당 경로에 요청과 응답 사이에 실행
 app.use('/shop', login_check, require('./routes/shop.js'));
 app.use('/board/sub', require('./routes/board.js'));
 
-// 마이페이지 접속 전 실행할 미들웨어
-function login_check(req ,res, next){
-    if(req.user){
-        next();
-    } else {
-        res.send('login fail');
+// image upload
+let multer = require('multer');
+var storage = multer.diskStorage({
+    destination : function(req, file, cb){
+        cb(null, './public/image')
+    }, 
+    filename : function(req, file, cb){
+        cb(null, file.originalname)
+    },
+    filefilter : function (req, file, callback) {
+        var ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
+            return callback(new Error('PNG, JPG만 업로드하세요'))
+        }
+        callback(null, true)
+    }, 
+    limits: {
+        fileSize: 1024 * 1024
     }
-}
+});
+
+var upload = multer({storage : storage})
+
+app.get('/upload', function(req, res){
+    res.render('upload.ejs');
+})
+
+app.post('/upload',upload.single('프로필') , function(req, res){
+    res.send('업로드 완료');
+})
+
+/*
+// 복수개 저장
+app.post('/upload',upload.array('프로필', 10) , function(req, res){
+    res.send('업로드 완료');
+})
+*/
+
+app.get('/image/:imageName', function(req, res){
+    res.sendFile( __dirname + '/public/image/' + req.params.imageName)
+})
