@@ -39,3 +39,18 @@
 - nodemon: 저장을 하면 자동으로 서버를 재실행해준다.
 - npm install -g nodemon
 - nodemon server.js 
+
+## Mongoos
+- Mongoose 필수인가? 
+- Mongoose 쓰면 약간 편해짐 & validation 쉬워짐
+- MongoDB Native 로 validation 가능하다. (MongoDB Tool 필요)
+
+## 보안
+- Validation 엄격히 
+- 직접 악성유저가 되어 사이트 테스트
+- 많이 알려진 서버에 대한 공격들 
+    - 1. <script>를 서버로 보내느 XSS 공격
+    - 2. brute force attack (비밀번호를 1분동안 1억번 로그인 요청 등)
+
+## 관리자 기능
+- 회원 가입을 시킬때 관리자 여부 true/false 등으로 필드를 만들면 된다.
