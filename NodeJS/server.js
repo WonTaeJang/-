@@ -187,6 +187,7 @@ function login_check(req ,res, next){
     if(req.user){
         next();
     } else {
+        res.status(400);
         res.send('login fail');
     }
 }
@@ -327,4 +328,26 @@ app.post('/upload',upload.array('프로필', 10) , function(req, res){
 
 app.get('/image/:imageName', function(req, res){
     res.sendFile( __dirname + '/public/image/' + req.params.imageName)
+})
+
+// chat
+app.post('/chat', login_check, function(req,res){
+    var postNum = parseInt(req.body._id);   // 게시물 번호
+    var reqUser = req.user._id;
+
+    // 게시물 정보
+    db.collection('post').findOne({_id : postNum}, function (err, post){
+        console.log(post);
+
+        var chatR = {member : [post.작성자, reqUser], data : new Date(), title : '채팅방' + postNum};
+        db.collection('chatroom').insertOne(chatR, function(err, result){
+            console.log('chat room create');
+        });
+    });
+});
+
+app.get('/chat', login_check, function(req, res){
+    db.collection('chatroom').find({member : req.user._id}).toArray(function(err, result){
+        res.render('chat.ejs', result);
+    })
 })
