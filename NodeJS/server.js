@@ -348,6 +348,6 @@ app.post('/chat', login_check, function(req,res){
 
 app.get('/chat', login_check, function(req, res){
     db.collection('chatroom').find({member : req.user._id}).toArray(function(err, result){
-        res.render('chat.ejs', result);
+        res.render('chat.ejs', { posts: result });
     })
 })
