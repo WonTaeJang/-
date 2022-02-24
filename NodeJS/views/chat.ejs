@@ -68,10 +68,10 @@
             <div class="row">
                 <div class="col-3">
                     <ul class="list-group chat-list">
-                        <% for(var i=0; i < posts.length; i++){ %>
+                        <% for(var i=0; i < data.length; i++){ %>
                             <li class="list-group-item" data-id="">
-                                <h6><%= posts[i].title %></h6>
-                                <h6 class="text-small">채팅방설명</h6>
+                                <h6><%= data[i].title %></h6>
+                                <h6 class="text-small"><%= data[i].member[0] %></h6>
                             </li>
                         <% } %>
                     </ul>

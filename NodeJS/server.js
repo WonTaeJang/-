@@ -351,3 +351,11 @@ app.get('/chat', login_check, function(req, res){
         res.render('chat.ejs', { posts: result });
     })
 })
+
+app.get('/chat', login_check, function(req, res){
+    db.collection('chatroom').find({member : req.user._id}).toArray().then((result)=>{
+        res.render('chat.ejs', { data: result });
+    })
+        
+    
+})
