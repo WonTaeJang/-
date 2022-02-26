@@ -348,14 +348,20 @@ app.post('/chat', login_check, function(req,res){
 
 app.get('/chat', login_check, function(req, res){
     db.collection('chatroom').find({member : req.user._id}).toArray(function(err, result){
-        res.render('chat.ejs', { posts: result });
+        res.render('chat.ejs', { data: result });
     })
 })
 
-app.get('/chat', login_check, function(req, res){
-    db.collection('chatroom').find({member : req.user._id}).toArray().then((result)=>{
-        res.render('chat.ejs', { data: result });
-    })
-        
+app.post('/message', login_check, function(req, res){
+    var 저장할거 = {
+        parent : req.body.parent,
+        content : req.body.content,
+        userid : req.user._id,
+        date : new Date(),
+    }
     
+    db.collection('message').insertOne(저장할거).then(()=>{
+        console.log('DB저장 성공');
+        res.send('DB 저장 성공');
+    })
 })
