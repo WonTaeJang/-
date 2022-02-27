@@ -365,3 +365,23 @@ app.post('/message', login_check, function(req, res){
         res.send('DB 저장 성공');
     })
 })
+
+app.get('/message:id', login_check, function(req, res){
+    // head를 수정하면 응답을 여러번 보낼수 있게 된다.
+    res.writeHead(200, {
+        "Connection" : "keep-alive",
+        "Content-Type" : "text/event-stream",
+        "Cache-Control": "no-cache",
+    });
+
+    db.collection('message').find({parent : req.params.id}).toArray().then((result)=>{
+        // event: 보낼데이터 이름
+        // data: 보낼데이터, 데이터는 문자만 취급
+        // json 는 문자취급
+        res.write('event: test\n');
+        res.write(`data: ${JSON.stringify(result)}\n\n`);
+    })
+
+    
+
+})

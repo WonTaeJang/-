@@ -96,10 +96,17 @@
 
         <script>
             var 지금누른채팅방id;
+            var eventSource;
 
             $('.list-group-item').click(function(){
                 지금누른채팅방id = this.dataset.id;
                 console.log(this.dataset.id);
+
+                // 유저가 데이터 수신은 new EventSource('/경로')
+                eventSource =  new EventSource('/message' + 지금누른채팅방id);
+                eventSource.addEventListener('test', function(e){
+                    console.log(JSON.parse(e.data));
+                })
             })
 
             $('#send').click(function(){
