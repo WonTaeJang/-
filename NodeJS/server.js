@@ -366,7 +366,7 @@ app.post('/message', login_check, function(req, res){
     })
 })
 
-app.get('/message:id', login_check, function(req, res){
+app.get('/message/:id', login_check, function(req, res){
     // head를 수정하면 응답을 여러번 보낼수 있게 된다.
     res.writeHead(200, {
         "Connection" : "keep-alive",
@@ -381,7 +381,4 @@ app.get('/message:id', login_check, function(req, res){
         res.write('event: test\n');
         res.write(`data: ${JSON.stringify(result)}\n\n`);
     })
-
-    
-
 })
