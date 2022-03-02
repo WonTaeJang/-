@@ -374,11 +374,24 @@ app.get('/message/:id', login_check, function(req, res){
         "Cache-Control": "no-cache",
     });
 
-    db.collection('message').find({parent : req.params.id}).toArray().then((result)=>{
+    db.collection('message').find({parent : req.params.id}).toArray()
+    .then((result)=>{
         // event: 보낼데이터 이름
         // data: 보낼데이터, 데이터는 문자만 취급
         // json 는 문자취급
         res.write('event: test\n');
         res.write(`data: ${JSON.stringify(result)}\n\n`);
     })
+
+    // mongodb change stream : DB 변동시 서버에 알려줌 -> 유저에게 보낼수 있음
+    const pipeline = [
+        { $match: {'fullDocument.parent' : req.params.id} }    // 감시 대상
+    ];
+    const collection = db.collection('message');
+    const changeStream = collection.watch(pipeline);    // .watch()붙이면 실시간 감시를 함
+    changeStream.on('change', (result)=>{
+        //console.log(result.fullDocument);
+        res.write('event: test\n');
+        res.write(`data: ${JSON.stringify([result.fullDocument])}\n\n`);
+    });
 })

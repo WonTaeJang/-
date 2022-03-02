@@ -104,26 +104,41 @@
                 지금누른채팅방주인 = $(this).find('.text-small').html();
                 console.log(this.dataset.id);
                 //console.log($(this).find('.text-small').html());
+                $('.chat-content').html('');
+
+                if(eventSource != undefined){
+                    eventSource.close();
+                }
 
                 // 유저가 데이터 수신은 new EventSource('/경로')
                 eventSource =  new EventSource('/message/' + 지금누른채팅방id);
                 eventSource.addEventListener('test', function(e){
                     console.log(JSON.parse(e.data));
-                    jdata = JSON.parse(e.data);
+                    let jdata = JSON.parse(e.data);
 
                     let chatTag = '';
                     
-                    for(let i=0; i < jdata.length; i++){
+                    jdata.forEach(function(i){
                         let isMine = '';
 
-                        if(지금누른채팅방주인 == jdata[i].userid){
+                        if(지금누른채팅방주인 == i.userid){
                             isMine = 'mine'
                         }
 
-                        chatTag += `<li><span class="chat-box ${isMine}">${jdata[i].content}</span></li>`
-                    }    
+                        $('.chat-content').append(`<li><span class="chat-box ${isMine}">${i.content}</span></li>`);
+                    })
+
+                    // for(let i=0; i < jdata.length; i++){
+                    //     let isMine = '';
+
+                    //     if(지금누른채팅방주인 == jdata[i].userid){
+                    //         isMine = 'mine'
+                    //     }
+
+                    //     chatTag += `<li><span class="chat-box ${isMine}">${jdata[i].content}</span></li>`
+                    // }    
                     
-                    $('.chat-content').html(chatTag);
+                    
                 })
             })
 
