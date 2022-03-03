@@ -1,5 +1,11 @@
 const express = require('express');
 const app = express();
+
+// socket.io setting
+const http = require('http').createServer(app);
+const {Server} = require('socket.io');
+const io = new Server(http);
+
 const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -29,7 +35,7 @@ MongoClient.connect(process.env.DB_URL, function (err, client) {
     //     console.log('저장완료');
     // });
 
-    app.listen(process.env.PORT, function () {
+    http.listen(process.env.PORT, function () {
         console.log('listening on 8080');
     });
 })
@@ -366,6 +372,11 @@ app.post('/message', login_check, function(req, res){
     })
 })
 
+// Server Sent Event(SSE)
+// 서버가 유저에게 일방적 통신 가능
+// Web Socket - socket.io
+// 양방향 통신가능
+
 app.get('/message/:id', login_check, function(req, res){
     // head를 수정하면 응답을 여러번 보낼수 있게 된다.
     res.writeHead(200, {
@@ -394,4 +405,18 @@ app.get('/message/:id', login_check, function(req, res){
         res.write('event: test\n');
         res.write(`data: ${JSON.stringify([result.fullDocument])}\n\n`);
     });
+})
+
+app.get('/socket', function(req, res){
+    res.render('socket.ejs');
+
+    // event lisener
+    io.on('connection', function(socket){
+        console.log('유저 접속됨');
+
+        // data 수신
+        socket.on('user-send', function(data){
+            console.log(data);
+        })
+    })
 })
