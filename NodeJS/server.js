@@ -414,9 +414,28 @@ app.get('/socket', function(req, res){
     io.on('connection', function(socket){
         console.log('유저 접속됨');
 
+        socket.on('room1-send', function(data){
+            io.to('room1').emit('broadcast', data);
+        })
+
+
+        socket.on('joinroom', function(data){
+            socket.join('room1');
+        })
+
         // data 수신
         socket.on('user-send', function(data){
             console.log(data);
+            //socket.json('room1');
+
+             // 서버 -> 유저 메시지 전송
+             // io.emit 특징: 해당 사이트에 모두 뿌려줌 
+             // socket.id 로 유저 구분 가능 
+            //io.to(socket.id).emit('broadcast', data);
+            io.emit('broadcast', data);
         })
+
+       
+        
     })
 })
