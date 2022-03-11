@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,9 +13,9 @@ function App() {
   // 2. useState()를 이용해 만들어야함
   // 3. 문자, 숫자, array object 다 저장가능
   // state에 데이터 저장해놓은 이유 : state는 변경되면 HTML이 자동으로 재렌더링이 됩니다.
-  let [글제목, 글제목변경] = useState(['남자 코트 추천', '여자 코트 추천','공용 코트 추천']);
+  let [글제목, 글제목변경] = useState(['남자 코트 추천', '여자 코트 추천', '공용 코트 추천']);
 
-  function 제목바꾸기(){
+  function 제목바꾸기() {
     var newArray = [...글제목];
     newArray[0] = '여자 코트 추천';
     글제목변경(newArray)
@@ -30,7 +30,7 @@ function App() {
       </div>
       <button onClick={제목바꾸기}>버튼</button>
       <div className="list">
-        <h3>{글제목[0]} <span onClick={()=>{따봉변경(따봉 + 1)}}>❤</span> {따봉} </h3>
+        <h3>{글제목[0]} <span onClick={() => { 따봉변경(따봉 + 1) }}>❤</span> {따봉} </h3>
         <p>2월 17일 발행</p>
         <hr></hr>
       </div>
@@ -47,9 +47,29 @@ function App() {
         <hr></hr>
       </div>
 
+      {/* React Component 문법 */}
+      {/* Component 유의사항 */}
+      {/* 1. 이름은 대괄호 */}
+      {/* 2. return() 안에 있는건 태그하나로 묶어야함 */}
+      <Modal></Modal>
 
     </div>
-  ); 
+  );
+}
+
+function Modal() {
+  return (
+    <>
+      <div>
+        <div className='modal'>
+          <h2>제목</h2>
+          <p>날짜</p>
+          <p>상세내용</p>
+        </div>
+      </div>
+    </>
+
+  )
 }
 
 export default App;
