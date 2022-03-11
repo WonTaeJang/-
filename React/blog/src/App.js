@@ -15,6 +15,12 @@ function App() {
   // state에 데이터 저장해놓은 이유 : state는 변경되면 HTML이 자동으로 재렌더링이 됩니다.
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '여자 코트 추천','공용 코트 추천']);
 
+  function 제목바꾸기(){
+    var newArray = [...글제목];
+    newArray[0] = '여자 코트 추천';
+    글제목변경(newArray)
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -22,7 +28,7 @@ function App() {
         {/* camelCase로 '-'는 뺄셈으로 인식하기 때문에 뒤단어를 대문자로 써야한다. */}
         <div>개발 Blog</div>
       </div>
-      <button onClick={()=>{글제목변경(['여자 코트 추천', 글제목[1], 글제목[2]])}}>버튼</button>
+      <button onClick={제목바꾸기}>버튼</button>
       <div className="list">
         <h3>{글제목[0]} <span onClick={()=>{따봉변경(따봉 + 1)}}>❤</span> {따봉} </h3>
         <p>2월 17일 발행</p>
