@@ -7,6 +7,7 @@ import './App.css';
 function App() {
   let posts = '강남 고기 맛집';
   let [따봉, 따봉변경] = useState(0);
+  let [modal, modal변경] = useState(false);
 
   // state: 
   // 1. 변수 대신 쓰는 데이터 저장공간
@@ -42,16 +43,25 @@ function App() {
       </div>
 
       <div className="list">
-        <h3>{글제목[2]}</h3>
+        <h3 onClick={() => { modal변경(true) }}>{글제목[2]}</h3>
         <p>2월 17일 발행</p>
+
         <hr></hr>
       </div>
+
+      <button onClick={()=>{modal변경(!modal)}}>버튼</button>
 
       {/* React Component 문법 */}
       {/* Component 유의사항 */}
       {/* 1. 이름은 대괄호 */}
       {/* 2. return() 안에 있는건 태그하나로 묶어야함 */}
-      <Modal></Modal>
+      {/* <Modal/> */}
+
+      {/* if대신 삼항연산자 */}
+      {
+        // 모달창도 state데이터를 이용해서 관리한다.
+        modal === true ?  <Modal/> : null
+      }
 
     </div>
   );
