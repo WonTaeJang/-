@@ -60,19 +60,22 @@ function App() {
       {/* if대신 삼항연산자 */}
       {
         // 모달창도 state데이터를 이용해서 관리한다.
-        modal === true ?  <Modal/> : null
+        // 부모 컴포넌트는 자식 컴포넌트에 state를 전달할 수 있다. 
+        // props <자식컴포넌트 작명={state명}>
+        modal === true ?  <Modal 글제목={글제목}/> : null
       }
 
     </div>
   );
 }
 
-function Modal() {
+// props 부모에서 전달받은 props는 여기 다 들어있음
+function Modal(props) {
   return (
     <>
       <div>
         <div className='modal'>
-          <h2>제목</h2>
+          <h2>{props.글제목[0]}</h2>
           <p>날짜</p>
           <p>상세내용</p>
         </div>
