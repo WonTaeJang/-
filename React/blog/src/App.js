@@ -9,6 +9,8 @@ function App() {
   let [누른제목, 누른제목변경] = useState(0);
   let [modal, modal변경] = useState(false);
 
+  let [입력값, 입력값변경] = useState('');
+
   // state: 
   // 1. 변수 대신 쓰는 데이터 저장공간
   // 2. useState()를 이용해 만들어야함
@@ -33,7 +35,7 @@ function App() {
       {
         글제목.map(function (글, i) {
           return (
-          <div className="list">
+          <div className="list" key={i}>
             <h3 onClick={()=>{누른제목변경(i)}}>{글} <span onClick={() => { 따봉변경(따봉 + 1) }}>❤</span> {따봉} </h3>
             <p>2월 17일 발행</p>
             <hr></hr>
@@ -41,6 +43,10 @@ function App() {
           )
         })
       }
+
+{/* input을 사용하여 state에 저장 */}
+      {/* {입력값} */}
+      <input onChange={(e)=>{입력값변경(e.target.value)}}></input>
 
       <button onClick={()=>{modal변경(!modal)}}>버튼</button>
 
