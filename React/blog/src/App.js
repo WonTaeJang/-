@@ -10,6 +10,7 @@ function App() {
   let [modal, modal변경] = useState(false);
 
   let [입력값, 입력값변경] = useState('');
+  let [추가값, 추가값변경] = useState('');
 
   // state: 
   // 1. 변수 대신 쓰는 데이터 저장공간
@@ -23,6 +24,12 @@ function App() {
   //   newArray[0] = '여자 코트 추천';
   //   글제목변경(newArray)
   // }
+
+  function addList(추가값){
+    var newArray = [...글제목];
+    newArray.push(추가값);
+    글제목변경(newArray);
+  }
 
   return (
     <div className="App">
@@ -44,7 +51,12 @@ function App() {
         })
       }
 
-{/* input을 사용하여 state에 저장 */}
+      <div className="publish">
+        <input onChange={(e)=>{추가값변경(e.target.value)}}></input>
+        <button onClick={()=>{addList(추가값)}}>저장</button>
+      </div>
+
+      {/* input을 사용하여 state에 저장 */}
       {/* {입력값} */}
       <input onChange={(e)=>{입력값변경(e.target.value)}}></input>
 
