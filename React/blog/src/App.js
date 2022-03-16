@@ -27,8 +27,10 @@ function App() {
 
   function addList(추가값){
     var newArray = [...글제목];
-    newArray.push(추가값);
+    //newArray.push(추가값);
+    newArray.unshift(추가값);
     글제목변경(newArray);
+    
   }
 
   return (
@@ -59,7 +61,6 @@ function App() {
       {/* input을 사용하여 state에 저장 */}
       {/* {입력값} */}
       <input onChange={(e)=>{입력값변경(e.target.value)}}></input>
-
       <button onClick={()=>{modal변경(!modal)}}>버튼</button>
 
       {/* React Component 문법 */}
@@ -76,6 +77,8 @@ function App() {
         modal === true ?  <Modal 글제목={글제목} 누른제목={누른제목}/> : null
       }
 
+
+      <Profile/>
     </div>
   );
 }
@@ -94,6 +97,28 @@ function Modal(props) {
     </>
 
   )
+}
+
+// 옛날방식 react class
+class Profile extends React.Component{
+  constructor(){
+    super();
+    this.state = {name : 'kim', age : "30"}
+  }
+
+  changeName(){
+    this.setState( {name : "Park"})
+  }
+
+  render(){
+    return(
+      <div>
+        <h3>프로필입니다.</h3>
+        <p>저는 {this.state.name} 입니다.</p>
+        <button onClick={this.changeName.bind(this)}>버튼</button>
+      </div>
+    )
+  }
 }
 
 export default App;
