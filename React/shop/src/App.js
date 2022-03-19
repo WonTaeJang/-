@@ -43,9 +43,10 @@ function App() {
       <div className='container'>
         <div className='row'>
           {
-            shoes.map(function(신발, i){
+            shoes.map(function(신발,i){
               return (
-                <Products shoes={shoes[i]}></Products>
+                // <Card shoes={shoes[i]}></Card>
+                <Card shoes={신발} i={i} key={i}></Card>
               )
             })
           }
@@ -75,7 +76,7 @@ function App() {
   );
 }
 
-function Products(Props){
+function Card(Props){
   return (
     <>
       <div className='col-md-4'>
