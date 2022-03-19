@@ -6,6 +6,8 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useState } from 'react';
 import data from './data.js';
 
+import { Link, Route, Switch } from 'react-router-dom';
+
 function App() {
   let [shoes, shoes변경] = useState(Data);
 
@@ -31,30 +33,31 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="jumbotron background">
-        <h1 className="display-4">20% Season Off</h1>
-        <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr className="my-4" />
-        <p className="lead">
-          <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p>
-      </div>
+      <Route exact path='/'>
+        <div className="jumbotron background">
+          <h1 className="display-4">20% Season Off</h1>
+          <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <hr className="my-4" />
+          <p className="lead">
+            <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          </p>
+        </div>
 
-      <div className='container'>
-        <div className='row'>
-          {
-            shoes.map(function(신발,i){
-              return (
-                // <Card shoes={shoes[i]}></Card>
-                <Card shoes={신발} i={i} key={i}></Card>
-              )
-            })
-          }
-          {/* <Products shoes={shoes[0]}></Products>
+        <div className='container'>
+          <div className='row'>
+            {
+              shoes.map(function (신발, i) {
+                return (
+                  // <Card shoes={shoes[i]}></Card>
+                  <Card shoes={신발} i={i} key={i}></Card>
+                )
+              })
+            }
+            {/* <Products shoes={shoes[0]}></Products>
           <Products shoes={shoes[1]}></Products>
           <Products shoes={shoes[2]}></Products> */}
 
-          {/* <div className='col-md-4'>
+            {/* <div className='col-md-4'>
             <img src={shoes[0].img_url} width="100%"/>
             <h4>{shoes[0].title}</h4>
             <p>{shoes[0].content}</p>
@@ -70,13 +73,31 @@ function App() {
             <h4>상품명</h4>
             <p>상품설명 & 정보</p>
           </div> */}
+          </div>
         </div>
-      </div>
+      </Route>
+      <Route path='/detail'>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+            </div>
+            <div className="col-md-6 mt-4">
+              <h4 className="pt-5">상품명</h4>
+              <p>상품설명</p>
+              <p>120000원</p>
+              <button className="btn btn-danger">주문하기</button>
+            </div>
+          </div>
+        </div>
+      </Route>
+
+
     </div>
   );
 }
 
-function Card(Props){
+function Card(Props) {
   return (
     <>
       <div className='col-md-4'>
