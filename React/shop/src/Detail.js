@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import './Detail.scss'
 
 //  styled-components
 // CSS를 미리 입혀놓은 컴포넌트
@@ -25,8 +26,12 @@ function Detail(props) {
     <div className="container">
 
       <박스>
-        <제목 색상={'red'}>상세 페이지</제목>
+        <제목 className='red'>상세 페이지</제목>
       </박스>
+
+      <div className='my-alert2'>
+        <p>재고가 얼마 남지 않았습니다.</p>
+      </div>
 
       <div className="row">
         <div className="col-md-6">
