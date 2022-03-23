@@ -30,20 +30,24 @@ class Detail2 extends React.Component {
 function Detail(props) {
 
   let [visible, setVisible] = useState({visibility:'none'});
+  let [alert, alert변경] = useState(true);
+  let [inputData, inputData변경] = useState('');
 
   // 컴포넌트가 mount 되었을 때, 컴포넌트가 update 되었을 때 
   // useEffect는 여러개 작성해도 되고 적은 순서대로 실행된다.
   useEffect(()=>{
-    console.log(11111)
     // 2초후에 alert창을 사라지게 하기
     //console.log(visible);
     let 타이머 = setTimeout(()=>{
       setVisible({visibility:'hidden'});
+      alert변경(false);
     },2000);
 
+    //console.log('sdf');
+
     // Detail function이 사라질때 실행되는 코드
-    return ()=>{}
-  });
+    return ()=>{clearTimeout(타이머)} // setTimeout이 동작하고 2초가 되기전에 뒤로가기 버튼같은걸 눌렀을때 버그가 발생하는걸 방지할 수 있다.
+  },[alert, inputData]); // [alert]라고 넣으면 alert 값이 변경될때만 실행되게 된다.
 
 
   let history = useHistory();
@@ -60,7 +64,17 @@ function Detail(props) {
         <제목 className='red'>상세 페이지</제목>
       </박스>
 
-      <Alert vb={visible}></Alert>
+      <input onChange={(e)=>{inputData변경(e.target.value)}}></input>
+
+      {
+        alert === true ? 
+        <div className='my-alert2' style={props.vb}>
+          <p>재고가 얼마 남지 않았습니다.</p>
+        </div> 
+        : null
+      }
+
+      {/* <Alert vb={visible}></Alert> */}
 
       <div className="row">
         <div className="col-md-6">
