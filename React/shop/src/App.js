@@ -6,11 +6,13 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useState } from 'react';
 import data from './data.js';
 import Detail from './Detail.js';
+import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
+  let [더보기, 더보기변경] = useState('');
 
   return (
     <div className="App">
@@ -57,7 +59,33 @@ function App() {
                   )
                 })
               }
+
+              {
+                더보기 == '' ? null : 더보기.map(function(신발, i) {
+                  return (
+                    // <Card shoes={shoes[i]}></Card>
+                    <Card2 shoes={신발} i={i} key={i}></Card2>
+                  )
+                })
+              }
             </div>
+
+            <button className='btn btn-primary' onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+                console.log(result.data);
+                더보기변경(result.data);
+                // result.data.map(function(dt,i){
+                //   console.log(dt, i);
+                //   return(
+                //     <Card2 shoes={dt} i={i} key={i}></Card2>
+                //   )
+                // })
+              })
+              .catch(()=>{
+                console.log('실패');
+              })
+            }}>더보기</button>
           </div>
         </Route>
         <Route path='/detail/:id'>
@@ -85,6 +113,19 @@ function Card(Props) {
     <>
       <div className='col-md-4'>
         <img src={Props.shoes.img_url} width="100%" />
+        <h4>{Props.shoes.title}</h4>
+        <p>{Props.shoes.content}</p>
+        <p>{Props.shoes.price}</p>
+      </div>
+    </>
+  )
+}
+
+function Card2(Props) {
+  return (
+    <>
+      <div className='col-md-4'>
+        <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
         <h4>{Props.shoes.title}</h4>
         <p>{Props.shoes.content}</p>
         <p>{Props.shoes.price}</p>
