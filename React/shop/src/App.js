@@ -12,7 +12,6 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
-  let [더보기, 더보기변경] = useState('');
 
   return (
     <div className="App">
@@ -54,33 +53,23 @@ function App() {
               {
                 shoes.map(function (신발, i) {
                   return (
-                    // <Card shoes={shoes[i]}></Card>
                     <Card shoes={신발} i={i} key={i}></Card>
-                  )
-                })
-              }
-
-              {
-                더보기 == '' ? null : 더보기.map(function(신발, i) {
-                  return (
-                    // <Card shoes={shoes[i]}></Card>
-                    <Card2 shoes={신발} i={i} key={i}></Card2>
                   )
                 })
               }
             </div>
 
             <button className='btn btn-primary' onClick={()=>{
+              // 로딩중 
+
+              // post 전송
+              //axios.post('서버URL', {id:'codingapple', pw:1234})
+
               axios.get('https://codingapple1.github.io/shop/data2.json')
               .then((result)=>{
+                // 로딩중 UI 안보이게 처리
                 console.log(result.data);
-                더보기변경(result.data);
-                // result.data.map(function(dt,i){
-                //   console.log(dt, i);
-                //   return(
-                //     <Card2 shoes={dt} i={i} key={i}></Card2>
-                //   )
-                // })
+                shoes변경([...shoes, ...result.data]) // 카피본 생성
               })
               .catch(()=>{
                 console.log('실패');
@@ -98,21 +87,15 @@ function App() {
           </div>
         </Route>
       </Switch>
-
-
-
-
     </div>
   );
 }
-
-
 
 function Card(Props) {
   return (
     <>
       <div className='col-md-4'>
-        <img src={Props.shoes.img_url} width="100%" />
+        <img src={`https://codingapple1.github.io/shop/shoes${(Props.shoes.id + 1)}.jpg`} width="100%" />
         <h4>{Props.shoes.title}</h4>
         <p>{Props.shoes.content}</p>
         <p>{Props.shoes.price}</p>

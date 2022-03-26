@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -33,10 +34,17 @@ function Detail(props) {
   let [alert, alert변경] = useState(true);
   let [inputData, inputData변경] = useState('');
 
+  // get 요청을 Detail component가 처음 실행될때만 사용하고 싶다면 
+  // [] 를 넣으면 조건에 부합하지 않기때문에 처음만 실행된다.
+  useEffect(()=>{
+    axios.get();
+  },[])
+
   // 컴포넌트가 mount 되었을 때, 컴포넌트가 update 되었을 때 
   // useEffect는 여러개 작성해도 되고 적은 순서대로 실행된다.
+  
   useEffect(()=>{
-    // 2초후에 alert창을 사라지게 하기
+        // 2초후에 alert창을 사라지게 하기
     //console.log(visible);
     let 타이머 = setTimeout(()=>{
       setVisible({visibility:'hidden'});
