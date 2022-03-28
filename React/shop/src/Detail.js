@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss'
+import {재고context} from './App.js';
 
 //  styled-components
 // CSS를 미리 입혀놓은 컴포넌트
@@ -33,6 +34,7 @@ function Detail(props) {
   let [visible, setVisible] = useState({visibility:'none'});
   let [alert, alert변경] = useState(true);
   let [inputData, inputData변경] = useState('');
+  let 재고 = useContext(재고context);
 
   // get 요청을 Detail component가 처음 실행될때만 사용하고 싶다면 
   // [] 를 넣으면 조건에 부합하지 않기때문에 처음만 실행된다.

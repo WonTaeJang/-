@@ -1,14 +1,18 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import Data from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import data from './data.js';
 import Detail from './Detail.js';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
+
+// context 만들기
+// 같은 변수값을 공유할 범위 생성
+export let 재고context = React.createContext();
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
@@ -50,6 +54,9 @@ function App() {
           </div>
 
           <div className='container'>
+
+            <재고context.Provider value={재고}>
+
             <div className='row'>
               {
                 shoes.map(function (신발, i) {
@@ -59,6 +66,8 @@ function App() {
                 })
               }
             </div>
+
+            </재고context.Provider>
 
             <button className='btn btn-primary' onClick={()=>{
               // 로딩중 
@@ -78,9 +87,13 @@ function App() {
             }}>더보기</button>
           </div>
         </Route>
+
+        <재고context.Provider value={재고}>
         <Route path='/detail/:id'>
           <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
         </Route>
+        </재고context.Provider>
+       
 
         <Route path="/:id">
           <div>
@@ -93,6 +106,8 @@ function App() {
 }
 
 function Card(Props) {
+
+  let 재고 = useContext(재고context);
   return (
     <>
       <div className='col-md-4'>
@@ -101,21 +116,14 @@ function Card(Props) {
         <p>{Props.shoes.content}</p>
         <p>{Props.shoes.price}</p>
       </div>
+      <Test></Test>
     </>
   )
 }
 
-function Card2(Props) {
-  return (
-    <>
-      <div className='col-md-4'>
-        <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-        <h4>{Props.shoes.title}</h4>
-        <p>{Props.shoes.content}</p>
-        <p>{Props.shoes.price}</p>
-      </div>
-    </>
-  )
+function Test(){
+  let 재고 = useContext(재고context);
+  return <p>재고 : {재고[0]}</p>
 }
 
 export default App;
