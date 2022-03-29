@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect,useContext } from 'react';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss'
 import {재고context} from './App.js';
+import {CSSTransition} from "react-transition-group";
 
 //  styled-components
 // CSS를 미리 입혀놓은 컴포넌트
@@ -35,6 +37,9 @@ function Detail(props) {
   let [alert, alert변경] = useState(true);
   let [inputData, inputData변경] = useState('');
   let 재고 = useContext(재고context);
+  
+  let [누른텝, 누른텝변경] = useState(0);
+  let [스위치, 스위치변경] = useState(false);
 
   // get 요청을 Detail component가 처음 실행될때만 사용하고 싶다면 
   // [] 를 넣으면 조건에 부합하지 않기때문에 처음만 실행된다.
@@ -107,6 +112,25 @@ function Detail(props) {
           }}>뒤로가기</button>
         </div>
       </div>
+
+      {/* Tab UI 만드는법
+        1. 몇번째 버튼 눌렀는지를 state로 저장해둠
+        2. state에 따라 UI 보이게 안보이게
+      */}
+
+      <Nav className='mt-5' variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={()=>{스위치변경(false); 누른텝변경(0)}}>Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={()=>{스위치변경(false); 누른텝변경(1)}}>Option 2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <CSSTransition in={스위치} classNames="wow" timeout={500}>
+        <TabContent 누른텝={누른텝} 스위치변경={스위치변경}></TabContent>
+      </CSSTransition>
+     
     </div>
   )
 
@@ -117,6 +141,20 @@ function Detail(props) {
     
   }
 
+  function TabContent(props){
+
+    useEffect(()=>{
+      props.스위치변경(true);
+    })
+
+    if(props.누른텝 === 0){
+      return <div>0번째 내용입니다.</div> 
+    } else if(props.누른텝 === 1){
+      return <div>1번째 내용입니다.</div> 
+    } else if(props.누른텝 === 2){
+      return <div>2번째 내용입니다.</div> 
+    }    
+  }
 
 }
 
