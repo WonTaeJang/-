@@ -6,6 +6,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import React, { useContext, useState } from 'react';
 import data from './data.js';
 import Detail from './Detail.js';
+import Cart from './Cart.js';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
@@ -88,18 +89,23 @@ function App() {
           </div>
         </Route>
 
+        <Route path='/cart'>        
+          <Cart></Cart>
+       </Route>
+
         <재고context.Provider value={재고}>
         <Route path='/detail/:id'>
           <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
         </Route>
         </재고context.Provider>
        
+       
 
-        <Route path="/:id">
+        {/* <Route path="/:id">
           <div>
             아무거나 적어보자
           </div>
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );
@@ -115,8 +121,9 @@ function Card(Props) {
         <h4>{Props.shoes.title}</h4>
         <p>{Props.shoes.content}</p>
         <p>{Props.shoes.price}</p>
+        <Test></Test>
       </div>
-      <Test></Test>
+      
     </>
   )
 }

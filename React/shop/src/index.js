@@ -7,6 +7,10 @@ import reportWebVitals from './reportWebVitals';
 // './' 가 없다면 라이브러리 이름
 import {BrowserRouter} from 'react-router-dom';
 
+import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+let store = createStore(()=>{return [{id:0, name:'멋진신발', quan:2}]});
+
 // BrowserRouter: 라우팅을 리액트가 아니라 서버에게 요청할 수 있어서 위험
 // HashRouter: 사이트 주소 뒤에 #이 붙는데 #뒤에 적는것은 서버로 전달X, 
 // 라우팅을 안전하게 할 수 있게 도와줌
@@ -15,7 +19,9 @@ import {BrowserRouter} from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
