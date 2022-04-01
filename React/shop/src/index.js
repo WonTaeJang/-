@@ -9,7 +9,34 @@ import {BrowserRouter} from 'react-router-dom';
 
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
-let store = createStore(()=>{return [{id:0, name:'멋진신발', quan:2}]});
+
+let 초기값 = [
+  { id: 0, name: '멋진신발', quan: 2 },
+  { id: 1, name: '멋진신발2', quan: 1 }
+]
+// redux에선 state 데이터의 수정방법을 미리 정의합니다. 
+function reducer(state = 초기값, 액션){
+  if (액션.type === '수량증가'){
+    let copy = [...state];
+    copy[0].quan++;
+
+    return copy
+  } 
+  else if(액션.type === '수량감소'){
+    let copy = [...state];
+
+    if(copy[0].quan > 0)
+      copy[0].quan--;
+
+    return copy
+  }
+  else {
+    return state
+  }
+  
+  return state;
+}
+let store = createStore(reducer);
 
 // BrowserRouter: 라우팅을 리액트가 아니라 서버에게 요청할 수 있어서 위험
 // HashRouter: 사이트 주소 뒤에 #이 붙는데 #뒤에 적는것은 서버로 전달X, 
