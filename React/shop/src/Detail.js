@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import './Detail.scss'
 import {재고context} from './App.js';
 import {CSSTransition} from "react-transition-group";
+import { connect } from "react-redux";
 
 //  styled-components
 // CSS를 미리 입혀놓은 컴포넌트
@@ -106,6 +107,8 @@ function Detail(props) {
             // 2. 사본을 변경함
             // 3. 사본을 변경함수에 집어넣기
             props.재고변경([9,11,12])
+            props.dispatch({type : '항목추가', payload : {id:2, name:'새로운상품', quan:1}})
+            history.push('/cart');
           }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => { 
             history.goBack(); 
@@ -158,4 +161,13 @@ function Detail(props) {
 
 }
 
-export default Detail;
+// state를 props화 하는 함수
+function 함수명(state){
+  console.log(state);
+  return {
+      state : state.reducer,
+      alert열렸니 : state.reducer2
+  }
+}
+
+export default connect(함수명)(Detail)
