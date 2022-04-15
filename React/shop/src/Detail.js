@@ -44,9 +44,9 @@ function Detail(props) {
 
   // get 요청을 Detail component가 처음 실행될때만 사용하고 싶다면 
   // [] 를 넣으면 조건에 부합하지 않기때문에 처음만 실행된다.
-  useEffect(()=>{
-    axios.get();
-  },[])
+  // useEffect(()=>{
+  //   axios.get();
+  // },[])
 
   // 컴포넌트가 mount 되었을 때, 컴포넌트가 update 되었을 때 
   // useEffect는 여러개 작성해도 되고 적은 순서대로 실행된다.
@@ -107,7 +107,7 @@ function Detail(props) {
             // 2. 사본을 변경함
             // 3. 사본을 변경함수에 집어넣기
             props.재고변경([9,11,12])
-            props.dispatch({type : '항목추가', payload : {id:2, name:'새로운상품', quan:1}})
+            props.dispatch({type : '항목추가', payload : {id:찾은상품.id, name:찾은상품.title, quan:1}})
             history.push('/cart');
           }}>주문하기</button>
           <button className="btn btn-danger" onClick={() => { 

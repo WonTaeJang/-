@@ -9,7 +9,7 @@ import Detail from './Detail.js';
 import Cart from './Cart.js';
 import axios from 'axios';
 
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 // context 만들기
 // 같은 변수값을 공유할 범위 생성
@@ -114,9 +114,11 @@ function App() {
 function Card(Props) {
 
   let 재고 = useContext(재고context);
+  let history = useHistory();
+
   return (
     <>
-      <div className='col-md-4'>
+      <div className='col-md-4' onClick={()=>{history.push('/detail/' + Props.shoes.id)}}>
         <img src={`https://codingapple1.github.io/shop/shoes${(Props.shoes.id + 1)}.jpg`} width="100%" />
         <h4>{Props.shoes.title}</h4>
         <p>{Props.shoes.content}</p>
