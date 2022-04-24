@@ -3,13 +3,16 @@ import './App.css';
 import Data from './data.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import React, { useContext, useState } from 'react';
-import data from './data.js';
-import Detail from './Detail.js';
+import React, { useContext, useState, lazy, Suspense } from 'react';
+
 import Cart from './Cart.js';
 import axios from 'axios';
 
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
+
+// import Detail from './Detail.js';
+// lazy loading
+let Detail = lazy(()=>{return import('./Detail.js')}); // 컴포넌트가 필요할때 불러옴
 
 // context 만들기
 // 같은 변수값을 공유할 범위 생성
@@ -42,8 +45,8 @@ function App() {
         </Container>
       </Navbar>
 
-      {/* 스위치는 중복을 허용하지 않는다. */}
-      <Switch>
+      {/* 스위치는 중복을 허용하지 않는다.*/}
+     <Switch>
         <Route exact path='/'>
           <div className="jumbotron background">
             <h1 className="display-4">20% Season Off</h1>
@@ -95,7 +98,10 @@ function App() {
 
         <재고context.Provider value={재고}>
         <Route path='/detail/:id'>
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
+          <Suspense fallback={<div>로딩중이에요</div>}>
+            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
+          </Suspense>
+          
         </Route>
         </재고context.Provider>
        
