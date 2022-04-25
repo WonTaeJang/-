@@ -73,6 +73,25 @@ function Detail(props) {
     return 상품.id == id
   });
 
+  useEffect(()=>{
+    console.log('detail:', id);
+
+    // RVI Resent View Items
+
+    let resentViewList = [];
+
+    if(localStorage.getItem('RVI') != null)
+    {
+      resentViewList = JSON.parse(localStorage.getItem('RVI'));
+    }
+
+    // 중복 검증 필요
+    if(!resentViewList.includes(id))
+      resentViewList.push(id);
+
+    localStorage.setItem('RVI', JSON.stringify(resentViewList));
+  },[])
+
   return (
     <div className="container">
 
