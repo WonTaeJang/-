@@ -6,7 +6,7 @@ function 함수2(x) {
 function 함수3(x) {
     x * 2;
 }
-console.log(함수2(30));
+//console.log(함수2(30));
 // 문제 
 function 함수4(x) {
     // 에러가 발생하는 이유는? 

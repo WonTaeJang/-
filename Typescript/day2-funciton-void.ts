@@ -1,5 +1,5 @@
 // ? 값을 넣으면 x: number | undefined 와 같음
-function 함수2(x? :number) :number{
+function 함수2(x :number) :number{
     return x*2
 }
 
@@ -8,7 +8,7 @@ function 함수3(x :number) :void{
     x*2
 }
 
-console.log(함수2(30));
+//console.log(함수2(30));
 
 // 문제 
 function 함수4(x :number | string) :void{
