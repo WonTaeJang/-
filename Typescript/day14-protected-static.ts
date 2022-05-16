@@ -29,7 +29,7 @@ class User3 {
     private static x = 10;
     public static y = 20;
 
-    static addOne(num){
+    static addOne(num: number){
         User3.x += num;
     }
 
