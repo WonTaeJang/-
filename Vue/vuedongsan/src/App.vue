@@ -1,31 +1,24 @@
 <template>
-  <div class="menu">
-    <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
+<!-- 모달창 UI -->
+<div class="black-bg" v-if="모달창열렸니 == true"> 
+  <div class="white-bg">
+    <h4>상세페이지</h4>
+    <p>상세페이지 내용</p>
+    <button @click="모달창열렸니 = false">닫기</button>
   </div>
+</div>
 
-<!-- 이벤트 핸들러 -->
-  <div>
-    <h4 :style="스타일">{{ products[0] }} 원룸</h4>
-    <p>50 만원</p>
-    <!-- v-on == @ -->
-    <button v-on:click='increase(0)'>허위매물신고</button><span>신고수 : {{신고수[0]}}</span>
-  </div>
-  <div>
-    <h4>{{ products[1] }} 원룸</h4>
-    <p>70 만원</p>
-     <button v-on:click='increase(1)'>허위매물신고</button><span>신고수 : {{신고수[1]}}</span>
-  </div>
-  <div>
-    <h4>{{ products[2] }} 원룸</h4>
-    <p>70 만원</p>
-     <button v-on:click='increase(2)'>허위매물신고</button><span>신고수 : {{신고수[2]}}</span>
-  </div>
+<div class="menu">
+  <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
+</div>
 
 <!-- v-for 반복문 -->
-  <!-- <div v-for="(a,i) in products" :key='i'>
-    <h4>{{ products[i] }} 원룸</h4>
+  <div v-for="(a,i) in products" :key='i'>   
+    <img src="./assets/room0.jpg" class="room-img">
+    <h4 v-on:click="모달창열렸니 = true">{{ products[i] }} 원룸</h4>
     <p>50 만원</p>
-  </div> -->
+    <button v-on:click='increase(i)'>허위매물신고</button><span>신고수 : {{신고수[i]}}</span>
+  </div>
 </template>
 
 <script>
@@ -34,6 +27,7 @@ export default {
   name: 'App',
   data(){
     return {
+      모달창열렸니 : false,
       신고수 : [0,0,0],
       메뉴들 : ['Home', 'Shop', 'About'],
       스타일 : 'color : blue',
@@ -59,6 +53,30 @@ export default {
   color: #2c3e50;
 }
 
+body {
+  margin : 0
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background:  rgba(0,0,0,0.5);
+  position: fixed; 
+  padding:20px;
+}
+
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
 .menu {
   background:  darkslateblue;
   padding: 15px;
@@ -69,4 +87,11 @@ export default {
   color: white;
   padding: 10px;
 }
+
+.room-img {
+  width: 100%;
+  margin-top: 40px;
+}
+
+
 </style>
