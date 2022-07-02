@@ -13,20 +13,22 @@
 </div>
 
 <!-- v-for 반복문 -->
-  <div v-for="(a,i) in products" :key='i'>   
-    <img src="./assets/room0.jpg" class="room-img">
-    <h4 v-on:click="모달창열렸니 = true">{{ products[i] }} 원룸</h4>
-    <p>50 만원</p>
-    <button v-on:click='increase(i)'>허위매물신고</button><span>신고수 : {{신고수[i]}}</span>
+  <div v-for="(a,i) in 원룸들" :key='i'>   
+    <img :src="원룸들[i].image" class="room-img">
+    <h4 v-on:click="모달창열렸니 = true">{{ 원룸들[i].title }}</h4>
+    <p>{{원룸들[i].price}}</p>
   </div>
 </template>
 
 <script>
 
+import data from './data/post.js';
+
 export default {
   name: 'App',
   data(){
     return {
+      원룸들 : data,
       모달창열렸니 : false,
       신고수 : [0,0,0],
       메뉴들 : ['Home', 'Shop', 'About'],
