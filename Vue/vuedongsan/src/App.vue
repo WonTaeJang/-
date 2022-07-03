@@ -1,18 +1,12 @@
 <template>
-<!-- 모달창 UI -->
-<div class="black-bg" v-if="모달창열렸니 == true"> 
-  <div class="white-bg">
-    <h4>{{ 원룸들[누른거].title}}</h4>
-    <img :src='원룸들[누른거].image' class='room-img'>
-    <p>{{원룸들[누른거].content}}</p>
-    <p>{{원룸들[누른거].price}}</p>
-    <button @click="모달창열렸니 = false">닫기</button>
-  </div>
-</div>
+
+<Modal/>
 
 <div class="menu">
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
 </div>
+
+<Discount/>
 
 <!-- v-for 반복문 -->
   <div v-for="(a,i) in 원룸들" :key='i'>   
@@ -25,6 +19,8 @@
 <script>
 
 import data from './data/post.js';
+import Discount from './Discount.vue'
+import Modal from './Modal.vue'
 
 export default {
   name: 'App',
@@ -44,6 +40,8 @@ export default {
     }
   },
   components: {
+    Discount : Discount,
+    Modal : Modal
   }
 }
 </script>
@@ -96,6 +94,5 @@ div {
   width: 100%;
   margin-top: 40px;
 }
-
 
 </style>
