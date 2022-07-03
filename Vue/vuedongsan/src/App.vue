@@ -14,9 +14,9 @@
 
 <!-- v-for 반복문 -->
   <div v-for="(a,i) in 원룸들" :key='i'>   
-    <img :src="원룸들[i].image" class="room-img">
-    <h4 v-on:click="모달창열렸니 = true">{{ 원룸들[i].title }}</h4>
-    <p>{{원룸들[i].price}}</p>
+    <img :src="a.image" class="room-img">
+    <h4 v-on:click="모달창열렸니 = true">{{ a.title }}</h4>
+    <p>{{a.price}}</p>
   </div>
 </template>
 
@@ -32,8 +32,7 @@ export default {
       모달창열렸니 : false,
       신고수 : [0,0,0],
       메뉴들 : ['Home', 'Shop', 'About'],
-      스타일 : 'color : blue',
-      products : ['역삼동원룸', '천호동원룸', '마포구원룸']
+      스타일 : 'color : blue'
     }
   },
   methods : {
