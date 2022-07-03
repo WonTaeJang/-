@@ -2,8 +2,10 @@
 <!-- 모달창 UI -->
 <div class="black-bg" v-if="모달창열렸니 == true"> 
   <div class="white-bg">
-    <h4>상세페이지</h4>
-    <p>상세페이지 내용</p>
+    <h4>{{ 원룸들[누른거].title}}</h4>
+    <img :src='원룸들[누른거].image' class='room-img'>
+    <p>{{원룸들[누른거].content}}</p>
+    <p>{{원룸들[누른거].price}}</p>
     <button @click="모달창열렸니 = false">닫기</button>
   </div>
 </div>
@@ -15,7 +17,7 @@
 <!-- v-for 반복문 -->
   <div v-for="(a,i) in 원룸들" :key='i'>   
     <img :src="a.image" class="room-img">
-    <h4 v-on:click="모달창열렸니 = true">{{ a.title }}</h4>
+    <h4 v-on:click="모달창열렸니 = true; 누른거 = i">{{ a.title }}</h4>
     <p>{{a.price}}</p>
   </div>
 </template>
@@ -28,6 +30,7 @@ export default {
   name: 'App',
   data(){
     return {
+      누른거 : 0,
       원룸들 : data,
       모달창열렸니 : false,
       신고수 : [0,0,0],
