@@ -1,26 +1,28 @@
 <template>
 
-<Modal/>
+<Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니='모달창열렸니'/>
 
 <div class="menu">
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
 </div>
 
 <Discount/>
+<Card v-for="(a,i) in 원룸들" :key='i' :원룸들=a />
 
 <!-- v-for 반복문 -->
-  <div v-for="(a,i) in 원룸들" :key='i'>   
+  <!-- <div v-for="(a,i) in 원룸들" :key='i'>   
     <img :src="a.image" class="room-img">
     <h4 v-on:click="모달창열렸니 = true; 누른거 = i">{{ a.title }}</h4>
     <p>{{a.price}}</p>
-  </div>
+  </div> -->
 </template>
 
 <script>
 
 import data from './data/post.js';
-import Discount from './Discount.vue'
-import Modal from './Modal.vue'
+import Discount from './components/Discount.vue'
+import Modal from './components/Modal.vue'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -41,7 +43,8 @@ export default {
   },
   components: {
     Discount : Discount,
-    Modal : Modal
+    Modal : Modal,
+    Card : Card
   }
 }
 </script>

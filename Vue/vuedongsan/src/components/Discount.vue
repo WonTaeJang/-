@@ -7,7 +7,7 @@
 <script>
 export default {
     //eslint-disable-next-line
-    name: 'Discount'
+    name: 'Discount',
 }
 </script>
 
