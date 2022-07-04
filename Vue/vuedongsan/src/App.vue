@@ -1,13 +1,14 @@
 <template>
 
-<Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니='모달창열렸니'/>
+<Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
+  @modalClose='모달창열렸니 = false'/>
 
 <div class="menu">
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
 </div>
 
 <Discount />
-<Card v-for="(a,i) in 원룸들" :key='i' :원룸=a />
+<Card @openModal='모달창열렸니 = true; 누른거 = $event' v-for="(a,i) in 원룸들" :key='i' :원룸=a />
 
 <!-- v-for 반복문 -->
   <!-- <div v-for="(a,i) in 원룸들" :key='i'>   
