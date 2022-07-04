@@ -6,8 +6,8 @@
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
 </div>
 
-<Discount/>
-<Card v-for="(a,i) in 원룸들" :key='i' :원룸들=a />
+<Discount />
+<Card v-for="(a,i) in 원룸들" :key='i' :원룸=a />
 
 <!-- v-for 반복문 -->
   <!-- <div v-for="(a,i) in 원룸들" :key='i'>   
@@ -28,6 +28,7 @@ export default {
   name: 'App',
   data(){
     return {
+      오브젝트 : {name : 'kim', age : 20},
       누른거 : 0,
       원룸들 : data,
       모달창열렸니 : false,
