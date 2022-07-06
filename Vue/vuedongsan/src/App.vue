@@ -1,7 +1,14 @@
 <template>
 
-<Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
-  @modalClose='모달창열렸니 = false'/>
+<!-- <div class='start' :class='{end : 모달창열렸니}'>
+  <Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
+    @modalClose='모달창열렸니 = false'/>
+</div> -->
+
+<transition name='fade'>
+  <Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
+    @modalClose='모달창열렸니 = false'/>
+</transition>
 
 <div class="menu">
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
@@ -98,6 +105,43 @@ div {
 .room-img {
   width: 100%;
   margin-top: 40px;
+}
+
+.start {
+  opacity: 0;
+  transition: all 1s;
+}
+
+.end {
+  opacity: 1;
+}
+
+/* 시작 */
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 1s;
+}
+
+/* 끝 */
+.fade-enter-to {
+  opacity: 1;
+}
+
+/* 시작 */
+.fade-leave-from {
+  transform: translateY(0px);
+}
+
+.fade-leave-active {
+  transition: all 2s;
+}
+
+/* 끝 */
+.fade-leave-to {
+  transform: translateY(-1000px);
 }
 
 </style>
