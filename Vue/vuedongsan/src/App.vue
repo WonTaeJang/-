@@ -1,10 +1,5 @@
 <template>
 
-<!-- <div class='start' :class='{end : 모달창열렸니}'>
-  <Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
-    @modalClose='모달창열렸니 = false'/>
-</div> -->
-
 <transition name='fade'>
   <Modal v-bind:원룸들='원룸들' :누른거='누른거' :모달창열렸니="모달창열렸니"
     @modalClose='모달창열렸니 = false'/>
@@ -14,7 +9,7 @@
   <a v-for="(a,i) in 메뉴들" :key="i">{{ a }}</a>
 </div>
 
-<Discount />
+<Discount v-if="showDiscount == true" />
 
 <button @click="priceSort">가격순정렬</button>
 <button @click="priceSortR">가격역순정렬</button>
@@ -22,13 +17,6 @@
 <button @click="sortBack">되돌리기</button>
 
 <Card @openModal='모달창열렸니 = true; 누른거 = $event' v-for="(a,i) in 원룸들" :key='i' :원룸=a />
-
-<!-- v-for 반복문 -->
-  <!-- <div v-for="(a,i) in 원룸들" :key='i'>   
-    <img :src="a.image" class="room-img">
-    <h4 v-on:click="모달창열렸니 = true; 누른거 = i">{{ a.title }}</h4>
-    <p>{{a.price}}</p>
-  </div> -->
 </template>
 
 <script>
@@ -42,20 +30,17 @@ export default {
   name: 'App',
   data(){
     return {
+      showDiscount : true,
       원룸들오리지널 : [...data],
       오브젝트 : {name : 'kim', age : 20},
       누른거 : 0,
       원룸들 : data,
       모달창열렸니 : false,
-      신고수 : [0,0,0],
       메뉴들 : ['Home', 'Shop', 'About'],
       스타일 : 'color : blue'
     }
   },
   methods : {
-    increase(i){
-      this.신고수[i]++;
-    },
     priceSort(){
       this.원룸들.sort((a,b) => a.price - b.price);
     },
@@ -77,6 +62,16 @@ export default {
     Discount : Discount,
     Modal : Modal,
     Card : Card
+  },
+  created(){
+
+  },
+  mounted(){
+    // mount 되고 나서 실행
+    // setTimeout(()=>{
+    //   // this 사용할려면 arrow func 을 사용해야함
+    //   this.showDiscount = false;
+    // }, 2000)
   }
 }
 </script>

@@ -46,6 +46,12 @@ export default {
             this.$emit('modalClose')
         },
 
+    },
+    beforeUpdate(){
+        if(this.month == 2){
+            alert('beforeUpdated');
+            this.month = 3;
+        }
     }
 }
 </script>
