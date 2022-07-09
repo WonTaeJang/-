@@ -35,14 +35,26 @@
     </div>
   </div>
 </nav>
+
+<div class='container mt-4'>
+  <List v-bind:블로그글="블로그글"/>
+</div>
 </template>
 
 <script>
 
+import List from './components/List.vue'
+import blogData from './assets/blog.js'
+
 export default {
   name: 'App',
+  data(){
+    return {
+      블로그글 : blogData
+    }
+  },
   components: {
-
+    List : List,
   }
 }
 </script>
