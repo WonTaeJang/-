@@ -36,14 +36,19 @@
   </div>
 </nav>
 
-<div class='container mt-4'>
+<router-link to='/'>홈페이지</router-link>
+<router-link to='/list'>리스트페이지</router-link>
+
+<router-view v-bind:블로그글="블로그글"></router-view>
+
+<!-- <div class='container mt-4'>
   <List v-bind:블로그글="블로그글"/>
-</div>
+</div> -->
 </template>
 
 <script>
 
-import List from './components/List.vue'
+// import List from './components/List.vue'
 import blogData from './assets/blog.js'
 
 export default {
@@ -54,7 +59,7 @@ export default {
     }
   },
   components: {
-    List : List,
+    // List : List,
   }
 }
 </script>
