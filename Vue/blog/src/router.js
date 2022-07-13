@@ -13,7 +13,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/detail',
+    path: '/detail/:id(\\d+)',
     component: Detail,
   }
 ];
