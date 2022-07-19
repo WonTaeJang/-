@@ -32,6 +32,7 @@ export default {
   data(){
     return {
       story : Data,
+      count : 0,
     }
   },
   components: {
@@ -39,13 +40,14 @@ export default {
   },
   methods : {
     more(){
-
-      axios.get('https://codingapple1.github.io/vue/more0.json')
+      axios.get(`https://codingapple1.github.io/vue/more${this.count%2}.json`)
       .then((result)=>{
         //요청성공시 실행할 코드
         console.log(result.data);
         this.story.push(result.data);
       });
+
+      this.count++;
     }
   },
 }
