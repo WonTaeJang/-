@@ -9,13 +9,13 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container v-bind:story='story' v-bind:step='step'/>
+  <Container v-bind:story='story' v-bind:step='step' v-bind:imgURL='imgURL'/>
 
   <button @click='more'>더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
@@ -35,6 +35,7 @@ export default {
       step: 0,    // 현재 페이지 상태 저장
       story : Data,
       count : 0,
+      imgURL : '',
     }
   },
   components: {
@@ -50,6 +51,15 @@ export default {
       });
 
       this.count++;
+    },
+    upload(e){
+      let imgFile = e.target.files;
+      
+      // blob(binary) url생성
+      this.imgURL = URL.createObjectURL(imgFile[0]);
+
+      // 다음 페이지로 넘어가기
+      this.step++;
     }
   },
 }
