@@ -9,7 +9,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container v-bind:story='story'/>
+  <Container v-bind:story='story' v-bind:step='step'/>
 
   <button @click='more'>더보기</button>
 
@@ -19,6 +19,7 @@
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
+
 </template>
 
 <script>
@@ -31,6 +32,7 @@ export default {
   name: 'App',
   data(){
     return {
+      step: 0,    // 현재 페이지 상태 저장
       story : Data,
       count : 0,
     }
