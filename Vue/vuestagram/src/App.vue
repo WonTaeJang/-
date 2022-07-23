@@ -4,7 +4,7 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li @click="step++">Next</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
@@ -25,7 +25,7 @@
 <script>
 
 import Container from './components/Container.vue';
-import Data from './data/post.js';
+import postdata from './data/post.js';
 import axios from 'axios';
 
 export default {
@@ -33,7 +33,7 @@ export default {
   data(){
     return {
       step: 0,    // 현재 페이지 상태 저장
-      story : Data,
+      story : postdata,
       count : 0,
       imgURL : '',
     }
