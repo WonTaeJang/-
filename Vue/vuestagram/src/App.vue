@@ -4,69 +4,90 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li @click="step++">Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container v-bind:story='story' v-bind:step='step' v-bind:imgURL='imgURL'/>
+  <Container v-bind:story="story" v-bind:step="step" v-bind:imgURL="imgURL" @write="작성한글 = $event"/>
 
-  <button @click='more'>더보기</button>
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
+      <input
+        @change="upload"
+        accept="image/*"
+        type="file"
+        id="file"
+        class="inputfile"
+      />
       <label for="file" class="input-plus">+</label>
     </ul>
- </div>
-
+  </div>
 </template>
 
 <script>
-
-import Container from './components/Container.vue';
-import postdata from './data/post.js';
-import axios from 'axios';
+import Container from "./components/Container.vue";
+import postdata from "./data/post.js";
+import axios from "axios";
 
 export default {
-  name: 'App',
-  data(){
+  name: "App",
+  data() {
     return {
-      step: 0,    // 현재 페이지 상태 저장
-      story : postdata,
-      count : 0,
-      imgURL : '',
-    }
+      step: 0, // 현재 페이지 상태 저장
+      story: postdata,
+      count: 0,
+      imgURL: "",
+      작성한글 : '',
+    };
   },
   components: {
-    Container : Container,
+    Container: Container,
   },
-  methods : {
-    more(){
-      axios.get(`https://codingapple1.github.io/vue/more${this.count%2}.json`)
-      .then((result)=>{
-        //요청성공시 실행할 코드
-        console.log(result.data);
-        this.story.push(result.data);
-      });
+  methods: {
+    more() {
+      axios
+        .get(`https://codingapple1.github.io/vue/more${this.count % 2}.json`)
+        .then((result) => {
+          //요청성공시 실행할 코드
+          console.log(result.data);
+          this.story.push(result.data);
+        });
 
       this.count++;
     },
-    upload(e){
+    upload(e) {
       let imgFile = e.target.files;
-      
+
       // blob(binary) url생성
       this.imgURL = URL.createObjectURL(imgFile[0]);
 
       // 다음 페이지로 넘어가기
       this.step++;
-    }
+    },
+    publish() {
+      // 발행 함수
+      var 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.imgURL,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.작성한글,
+        filter: "perpetua",
+      };
+      this.story.unshift(내게시물);
+      this.step = 0;
+    },
   },
-}
+};
 </script>
 
 <style>
-
 body {
   margin: 0;
 }
