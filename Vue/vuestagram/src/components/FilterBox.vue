@@ -1,5 +1,5 @@
 <template>
-  <div :class="classObj" :style="{ backgroundImage: `url(${imgURL})` }"></div>
+  <div :class="`${cssName} filter-item` " :style="{ backgroundImage: `url(${imgURL})` }"></div>
 </template>
 
 <script>
@@ -17,9 +17,6 @@ export default {
       },
     };
   },
-  created() {
-    this.classObj[this.cssName] = true;
-  }
 };
 </script>
 
