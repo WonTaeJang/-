@@ -1,5 +1,15 @@
 <template>
-  <div :class="`${cssName} filter-item` " :style="{ backgroundImage: `url(${imgURL})` }"></div>
+  <div
+    :class="`${cssName} filter-item`"
+    :style="{ backgroundImage: `url(${imgURL})` }"
+  >
+    <slot name="a">
+        <!-- slot으로 부모 -> 자식 데이터 전송법 -->
+        <!-- 1. 자식은 구멍 뚫기 -->
+        <!-- 2. <컴포넌트> 태그사이에 데이터 넣기 -->
+    </slot>
+    <slot name="b"></slot>
+  </div>
 </template>
 
 <script>
@@ -13,7 +23,7 @@ export default {
   data() {
     return {
       classObj: {
-        "filter-item": true
+        "filter-item": true,
       },
     };
   },

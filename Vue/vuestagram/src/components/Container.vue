@@ -12,10 +12,13 @@
     <div class="filters">
       <FilterBox
         :imgURL="imgURL"
-        v-for="e in filters"
-        :key="e"
-        :cssName="e"
-      ></FilterBox>
+        v-for="filter in filters"
+        :key="filter"
+        :cssName="filter"
+      >
+        <template v-slot:a>{{filter}}</template>
+        <template v-slot:b></template>
+      </FilterBox>
     </div>
   </div>
 
