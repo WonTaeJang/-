@@ -6,6 +6,7 @@
   <!-- 필터선택페이지 -->
   <div v-if="step == 1">
     <div
+      :class="`${story.filter}`"
       class="upload-image"
       :style="{ backgroundImage: `url(${imgURL})` }"
     ></div>
@@ -25,6 +26,7 @@
   <!-- 글작성페이지 -->
   <div v-if="step == 2">
     <div
+      :class="`${story.filter}`"
       class="upload-image"
       :style="{ backgroundImage: `url(${imgURL})` }"
     ></div>

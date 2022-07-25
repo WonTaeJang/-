@@ -8,7 +8,7 @@
         <!-- 1. 자식은 구멍 뚫기 -->
         <!-- 2. <컴포넌트> 태그사이에 데이터 넣기 -->
     </slot>
-    <slot name="b"></slot>
+    <button @click="filterSelect" >버튼</button>
   </div>
 </template>
 
@@ -16,6 +16,11 @@
 export default {
   //eslint-disable-next-line
   name: "filterbox",
+  methods: {
+    filterSelect(){
+      this.emitter.emit('filter', this.cssName);
+    }
+  },
   props: {
     imgURL: String,
     cssName: String,
@@ -26,7 +31,7 @@ export default {
         "filter-item": true,
       },
     };
-  },
+  }
 };
 </script>
 

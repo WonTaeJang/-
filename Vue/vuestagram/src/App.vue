@@ -42,6 +42,7 @@ export default {
       count: 0,
       imgURL: "",
       작성한글 : '',
+      filter : '',
     };
   },
   components: {
@@ -78,11 +79,18 @@ export default {
         date: "May 15",
         liked: false,
         content: this.작성한글,
-        filter: "perpetua",
+        filter: this.filter,
       };
       this.story.unshift(내게시물);
       this.step = 0;
     },
+  },
+  mounted(){
+    this.emitter.on('filter', (a)=>{
+      console.log(a);
+      this.filter = a;
+      this.story.filter = a;
+    })
   },
 };
 </script>
