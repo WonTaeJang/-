@@ -87,7 +87,6 @@ export default {
   },
   mounted(){
     this.emitter.on('filter', (a)=>{
-      console.log(a);
       this.filter = a;
       this.story.filter = a;
     })

@@ -2,13 +2,14 @@
   <div
     :class="`${cssName} filter-item`"
     :style="{ backgroundImage: `url(${imgURL})` }"
+    @click="filterSelect"
   >
     <slot name="a">
         <!-- slot으로 부모 -> 자식 데이터 전송법 -->
         <!-- 1. 자식은 구멍 뚫기 -->
         <!-- 2. <컴포넌트> 태그사이에 데이터 넣기 -->
     </slot>
-    <button @click="filterSelect" >버튼</button>
+    <!-- <button @click="filterSelect" >버튼</button> -->
   </div>
 </template>
 
