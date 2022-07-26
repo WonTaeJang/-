@@ -10,6 +10,9 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <div>안녕 {{$store.state.name}}</div>
+  <button @click="$store.state.name = '박'"></button>
+
   <Container v-bind:story="story" v-bind:step="step" v-bind:imgURL="imgURL" @write="작성한글 = $event"/>
 
   <button @click="more">더보기</button>
