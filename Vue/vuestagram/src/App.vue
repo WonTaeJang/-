@@ -11,7 +11,9 @@
   </div>
 
   <div>안녕 {{$store.state.name}}</div>
-  <button @click="$store.state.name = '박'"></button>
+  <div>안녕 {{$store.state.age}}</div>
+  <button @click="$store.commit('이름변경')">이름 변경</button>
+  <button @click="$store.commit('나이증가',10)">나이 증가</button>
 
   <Container v-bind:story="story" v-bind:step="step" v-bind:imgURL="imgURL" @write="작성한글 = $event"/>
 
