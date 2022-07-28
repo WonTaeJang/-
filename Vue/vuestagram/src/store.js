@@ -5,6 +5,8 @@ const store = createStore({
         return {
             name : 'kim',
             age : 20,
+            likes : 30,
+            좋아요눌렀니 : false,
         }
     }, 
     mutations : {   // state 수정방법 정의하는곳
@@ -13,7 +15,18 @@ const store = createStore({
         },
         나이증가(state, payload){
             state.age += payload;
+        },
+        좋아요(state){
+            if(state.좋아요눌렀니){
+                state.likes--;
+                state.좋아요눌렀니 = false
+            }
+            else{
+                state.likes++;
+                state.좋아요눌렀니 = true
+            }
         }
+        
     }
 })
 
