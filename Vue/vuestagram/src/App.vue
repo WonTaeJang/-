@@ -19,6 +19,10 @@
 
   <button @click="more">더보기</button>
 
+  <p>{{$store.state.more}}</p>
+  <!-- dispatch 는 store에 actions를 호출 -->
+  <button @click="$store.dispatch('getData')">더보기 vuex</button>
+
   <div class="footer">
     <ul class="footer-button-plus">
       <input
