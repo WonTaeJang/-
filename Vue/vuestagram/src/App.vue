@@ -17,7 +17,6 @@
 
   <Container v-bind:story="story" v-bind:step="step" v-bind:imgURL="imgURL" @write="작성한글 = $event"/>
 
-  <button @click="more">더보기</button>
 
   <p>{{$store.state.more}}</p>
   <!-- dispatch 는 store에 actions를 호출 -->
@@ -41,6 +40,7 @@
 import Container from "./components/Container.vue";
 import postdata from "./data/post.js";
 import axios from "axios";
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   name: "App",
@@ -52,10 +52,31 @@ export default {
       imgURL: "",
       작성한글 : '',
       filter : '',
+      카운터: 0,
     };
   },
   components: {
     Container: Container,
+  },
+  computed : {
+    // method와 비슷한 기능
+    /*
+      computed함수는 최초 1회만 실행되고 더이상 재실행 되지 않는다. 
+      처음 실행한 값을 간직함
+
+      자원 절약에 용이
+
+      computed는 매개변수를 넣을 수 없음 
+
+      return은 필수이다.
+    */ 
+
+   name(){
+    // vuex에서 state를 꺼내쓸 때 유용하다
+    return this.$store.state.name
+   },
+   ...mapState(['name','age', 'likes']),
+   ...mapState({작명:'name',})  // 다른이름 쓰고 싶다면 object형식으로 
   },
   methods: {
     more() {
@@ -100,6 +121,7 @@ export default {
       this.story.filter = a;
     })
   },
+  ...mapMutations(['setMore', '좋아요']),
 };
 </script>
 
