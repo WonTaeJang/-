@@ -36,12 +36,17 @@ write!</textarea
       >
     </div>
   </div>
+
+  <div v-if="step == 3">
+    <MyPage/>
+  </div>
 </template>
 
 <script>
 import Post from "./Post.vue";
 import FilterBox from "@/components/FilterBox.vue";
 import Filters from "@/data/filter.js";
+import MyPage from "@/components/MyPage.vue"
 
 export default {
   //eslint-disable-next-line
@@ -49,6 +54,7 @@ export default {
   components: {
     Post: Post,
     FilterBox,
+    MyPage,
   },
   data() {
     return {

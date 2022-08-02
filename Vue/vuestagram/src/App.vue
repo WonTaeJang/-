@@ -46,7 +46,7 @@ export default {
   name: "App",
   data() {
     return {
-      step: 0, // 현재 페이지 상태 저장
+      step: 3, // 현재 페이지 상태 저장
       story: postdata,
       count: 0,
       imgURL: "",
